@@ -399,7 +399,7 @@ class IngestService:
         Returns:
             Dictionary with file_count, total_lines, languages
         """
-        stats = {"file_count": 0, "total_lines": 0, "languages": {}}
+        stats = {"file_count": 0, "total_lines": 0, "languages": {}, "total_size_bytes": 0}
         
         for file_path in repo_path.rglob('*'):
             if not file_path.is_file():

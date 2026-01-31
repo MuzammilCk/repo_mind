@@ -40,6 +40,10 @@ class Settings(BaseSettings):
     # SeaGOAT Configuration
     SEAGOAT_PORT: int = 8765
     
+    # Validation Configuration
+    MAX_REPO_SIZE_MB: int = 500
+
+    
     # Debug mode
     DEBUG: bool = False
     

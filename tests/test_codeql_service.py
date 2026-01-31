@@ -106,8 +106,8 @@ class TestCodeQLService:
         assert sql_injection.severity == SeverityEnum.CRITICAL
         
         # warning -> high
-        path_injection = next(f for f in findings if "path-injection" in f.rule_id)
-        assert path_injection.severity == SeverityEnum.HIGH
+        weak_crypto = next(f for f in findings if "weak-crypto" in f.rule_id)
+        assert weak_crypto.severity == SeverityEnum.HIGH
         
         # note -> medium
         unused_import = next(f for f in findings if "unused-import" in f.rule_id)
@@ -123,9 +123,10 @@ class TestCodeQLService:
         findings = service._parse_sarif(sample_sarif_path)
         
         file_paths = [f.file_path for f in findings]
-        assert "src/database/queries.py" in file_paths
-        assert "src/utils/file_handler.py" in file_paths
-        assert "src/main.py" in file_paths
+        file_paths = [f.file_path for f in findings]
+        assert "src/db.py" in file_paths
+        assert "src/utils.py" in file_paths
+        assert "src/auth.py" in file_paths
     
     @patch('subprocess.run')
     def test_parse_sarif_line_numbers(self, mock_run, sample_sarif_path):
@@ -138,13 +139,13 @@ class TestCodeQLService:
         
         # Check SQL injection finding
         sql_injection = next(f for f in findings if "sql-injection" in f.rule_id)
-        assert sql_injection.start_line == 125
-        assert sql_injection.end_line == 127
+        assert sql_injection.start_line == 45
+        assert sql_injection.end_line == 45
         
-        # Check path injection finding
-        path_injection = next(f for f in findings if "path-injection" in f.rule_id)
-        assert path_injection.start_line == 42
-        assert path_injection.end_line == 42
+        # Check weak crypto finding
+        weak_crypto = next(f for f in findings if "weak-crypto" in f.rule_id)
+        assert weak_crypto.start_line == 102
+        assert weak_crypto.end_line == 105
     
     @patch('subprocess.run')
     def test_parse_sarif_recommendations(self, mock_run, sample_sarif_path):
@@ -241,7 +242,7 @@ class TestCodeQLService:
         monkeypatch.setattr(
             service,
             'ingest_dir',
-            sample_repo_structure.parent.parent.parent
+            sample_repo_structure.parent.parent
         )
         
         request = CodeQLScanRequest(
@@ -269,7 +270,7 @@ class TestCodeQLService:
         monkeypatch.setattr(
             service,
             'ingest_dir',
-            sample_repo_structure.parent.parent.parent
+            sample_repo_structure.parent.parent
         )
         monkeypatch.setattr(
             service,

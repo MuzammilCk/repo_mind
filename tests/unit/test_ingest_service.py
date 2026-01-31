@@ -8,7 +8,7 @@ from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
 
 from services.ingest_service import IngestService
-from models.requests import IngestRequest, RepositorySource
+from models.requests import IngestRequest, RepoSource
 
 
 class TestIngestService:

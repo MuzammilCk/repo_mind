@@ -1,31 +1,24 @@
 {
-  "version": "2.1.0",
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
         "driver": {
           "name": "CodeQL",
-          "version": "2.11.0",
           "rules": [
             {
               "id": "py/sql-injection",
-              "name": "SQL Injection",
+              "name": "py/sql-injection",
               "shortDescription": {
-                "text": "SQL injection vulnerability"
+                "text": "SQL query built from user-controlled sources"
               },
               "help": {
-                "text": "Use parameterized queries instead of string concatenation"
-              }
-            },
-            {
-              "id": "py/path-injection",
-              "name": "Path Injection",
-              "shortDescription": {
-                "text": "Uncontrolled data used in path expression"
+                "text": "SQL Injection\nAvoid building SQL queries with string concatenation. Use parameterized queries instead.",
+                "markdown": "# SQL Injection\nAvoid building SQL queries..."
               },
-              "help": {
-                "text": "Validate and sanitize file paths from user input"
+              "properties": {
+                "severity": "error"
               }
             }
           ]
@@ -34,39 +27,19 @@
       "results": [
         {
           "ruleId": "py/sql-injection",
+          "message": {
+            "text": "Possible SQL injection vector."
+          },
           "level": "error",
-          "message": {
-            "text": "Potential SQL injection vulnerability detected"
-          },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/database/queries.py"
+                  "uri": "src/db.py"
                 },
                 "region": {
-                  "startLine": 125,
-                  "endLine": 127
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "py/path-injection",
-          "level": "warning",
-          "message": {
-            "text": "User-controlled data used in file path"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/utils/file_handler.py"
-                },
-                "region": {
-                  "startLine": 42,
-                  "endLine": 42
+                  "startLine": 45,
+                  "endLine": 45
                 }
               }
             }
@@ -74,19 +47,39 @@
         },
         {
           "ruleId": "py/unused-import",
-          "level": "note",
           "message": {
-            "text": "Unused import statement"
+            "text": "Unused import 'os'."
           },
+          "level": "note",
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/main.py"
+                  "uri": "src/utils.py"
                 },
                 "region": {
-                  "startLine": 5,
-                  "endLine": 5
+                  "startLine": 1,
+                  "endLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "py/weak-crypto",
+          "message": {
+            "text": "Weak cryptographic algorithm."
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/auth.py"
+                },
+                "region": {
+                  "startLine": 102,
+                  "endLine": 105
                 }
               }
             }

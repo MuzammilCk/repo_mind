@@ -38,7 +38,7 @@ def check_files():
         "Services": [
             "services/__init__.py",
             "services/ingest_service.py",
-            "services/seagoat_service.py",
+            "services/search_service.py",
             "services/codeql_service.py",
             "services/orchestrator.py",
             "services/gemini_config.py"
@@ -78,7 +78,7 @@ def check_files():
         print(f"{category}:")
         for file in files:
             exists = Path(file).exists()
-            status = "✅" if exists else "❌"
+            status = "[OK]" if exists else "[MISSING]"
             print(f"  {status} {file}")
             if not exists:
                 all_ok = False
@@ -107,9 +107,9 @@ def check_imports():
     for module, item in imports:
         try:
             exec(f"from {module} import {item}")
-            print(f"✅ {module}.{item}")
+            print(f"[OK] {module}.{item}")
         except Exception as e:
-            print(f"❌ {module}.{item} - {str(e)}")
+            print(f"[FAIL] {module}.{item} - {str(e)}")
             all_ok = False
     
     return all_ok
@@ -133,18 +133,18 @@ def check_safety_contracts():
             source="repo.md"
         )
         rejects_fake = not validator.validate_evidence(fake_evidence, "fake_repo")
-        print(f"{'✅' if rejects_fake else '❌'} Evidence validator rejects non-existent files")
+        print(f"{'[OK]' if rejects_fake else '[FAIL]'} Evidence validator rejects non-existent files")
         
         # Test 2: Plan validator enforces schema
         plan_validator = PlanValidator()
         invalid_plan = {"plan_id": "test"}
         result = plan_validator.validate_plan_schema(invalid_plan)
         enforces_schema = not result.valid
-        print(f"{'✅' if enforces_schema else '❌'} Plan validator enforces JSON schema")
+        print(f"{'[OK]' if enforces_schema else '[FAIL]'} Plan validator enforces JSON schema")
         
         # Test 3: Low temperature configs
         low_temp = PLANNING_CONFIG.temperature <= 0.3 and ANALYSIS_CONFIG.temperature <= 0.3
-        print(f"{'✅' if low_temp else '❌'} Gemini configs use low temperature (≤0.3)")
+        print(f"{'[OK]' if low_temp else '[FAIL]'} Gemini configs use low temperature (<=0.3)")
         print(f"    Planning: {PLANNING_CONFIG.temperature}, Analysis: {ANALYSIS_CONFIG.temperature}")
         
         # Test 4: Rate limiter works
@@ -153,13 +153,13 @@ def check_safety_contracts():
         call2 = limiter.check_rate_limit("test")
         call3 = limiter.check_rate_limit("test")
         rate_limit_works = call1 and call2 and not call3
-        print(f"{'✅' if rate_limit_works else '❌'} Rate limiter enforces limits")
+        print(f"{'[OK]' if rate_limit_works else '[FAIL]'} Rate limiter enforces limits")
         
         all_ok = rejects_fake and enforces_schema and low_temp and rate_limit_works
         return all_ok
         
     except Exception as e:
-        print(f"❌ Safety contracts check failed: {str(e)}")
+        print(f"[FAIL] Safety contracts check failed: {str(e)}")
         return False
 
 
@@ -180,9 +180,9 @@ def check_workspace():
         path = Path(dir_path)
         if not path.exists():
             path.mkdir(parents=True, exist_ok=True)
-            print(f"✅ Created: {dir_path}")
+            print(f"[OK] Created: {dir_path}")
         else:
-            print(f"✅ Exists: {dir_path}")
+            print(f"[OK] Exists: {dir_path}")
     
     return all_ok
 
@@ -195,7 +195,7 @@ def check_config():
         from config import Settings
         settings = Settings()
         
-        print(f"✅ Configuration loaded")
+        print(f"[OK] Configuration loaded")
         print(f"    DEBUG: {settings.DEBUG}")
         print(f"    LOG_LEVEL: {settings.LOG_LEVEL}")
         print(f"    WORKSPACE_DIR: {settings.WORKSPACE_DIR}")
@@ -204,14 +204,14 @@ def check_config():
         # Check .env file
         env_file = Path(".env")
         if env_file.exists():
-            print(f"✅ .env file exists")
+            print(f"[OK] .env file exists")
         else:
-            print(f"⚠️  .env file not found (using defaults)")
+            print(f"[WARN] .env file not found (using defaults)")
         
         return True
         
     except Exception as e:
-        print(f"❌ Configuration check failed: {str(e)}")
+        print(f"[FAIL] Configuration check failed: {str(e)}")
         return False
 
 
@@ -229,7 +229,7 @@ def run_validation_scripts():
     all_ok = True
     for script in validation_scripts:
         if not Path(script).exists():
-            print(f"⚠️  {script} not found")
+            print(f"[WARN] {script} not found")
             continue
         
         try:
@@ -241,12 +241,12 @@ def run_validation_scripts():
             )
             
             if result.returncode == 0:
-                print(f"✅ {script} passed")
+                print(f"[OK] {script} passed")
             else:
-                print(f"❌ {script} failed")
+                print(f"[FAIL] {script} failed")
                 all_ok = False
         except Exception as e:
-            print(f"❌ {script} error: {str(e)}")
+            print(f"[FAIL] {script} error: {str(e)}")
             all_ok = False
     
     return all_ok
@@ -273,16 +273,16 @@ def main():
     print_section("VERIFICATION SUMMARY")
     
     for check, passed in results.items():
-        status = "✅ PASS" if passed else "❌ FAIL"
+        status = "[OK] PASS" if passed else "[FAIL] FAIL"
         print(f"{status} - {check.upper()}")
     
     all_passed = all(results.values())
     
     print("\n" + "="*60)
     if all_passed:
-        print("  ✅ ALL CHECKS PASSED - SYSTEM READY!")
+        print("  [OK] ALL CHECKS PASSED - SYSTEM READY!")
     else:
-        print("  ❌ SOME CHECKS FAILED - SEE ABOVE")
+        print("  [FAIL] SOME CHECKS FAILED - SEE ABOVE")
     print("="*60 + "\n")
     
     # Save results
