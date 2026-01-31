@@ -80,6 +80,13 @@ async def root():
     }
 
 
+from services.codeql_service import CodeQLService
+from services.gemini_service import GeminiService
+
+# Initialize services at module level for health checks
+codeql_service = CodeQLService()
+gemini_service = GeminiService()
+
 @app.get(
     "/health",
     summary="Health check",
@@ -88,26 +95,33 @@ async def root():
 )
 async def health():
     """
-    Health check endpoint
-    
-    Returns the health status of the API and its services.
+    Health check endpoint with CodeQL and Gemini status
     """
     from datetime import datetime
     
     # Calculate uptime
     uptime_seconds = (datetime.utcnow() - metrics_collector.start_time).total_seconds()
     
+    # Get statuses
+    codeql_status = codeql_service.get_status()
+    gemini_status = gemini_service.get_status()
+    
     return {
         "status": "healthy",
         "version": "1.0.0",
         "debug_mode": settings.DEBUG,
         "uptime_seconds": round(uptime_seconds, 2),
+        "codeql_available": codeql_status["codeql_available"],
+        "codeql_version": codeql_status["codeql_version"],
+        "gemini_available": gemini_status["gemini_available"],
+        "gemini_model": gemini_status["gemini_model"],
+        "api_key_configured": gemini_status["api_key_configured"],
         "services": {
             "ingest": "available",
             "search": "available (requires SeaGOAT)",
-            "codeql": "available (requires CodeQL CLI)",
+            "codeql": "available" if codeql_status["codeql_available"] else "unavailable (CLI missing)",
             "orchestrator": "available",
-            "gemini": "not implemented (Phase 2)"
+            "gemini": "available" if gemini_status["gemini_available"] else "unavailable"
         }
     }
 

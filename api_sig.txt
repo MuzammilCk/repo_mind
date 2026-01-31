@@ -1,0 +1,12 @@
+D:\projects\cli\verify_gemini_api.py:12: UserWarning: Interactions usage is experimental and may change in future versions.
+  if hasattr(client, 'interactions'):
+GenAI Version: 1.55.0
+
+Client created.
+Attribute 'interactions' found on client.
+
+Signature of client.interactions.create:
+(*, input: 'interaction_create_params.Input', model: 'ModelParam | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, api_version: 'str | None' = None, background: 'bool | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, generation_config: 'GenerationConfigParam | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, previous_interaction_id: 'str | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, response_format: 'object | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, response_mime_type: 'str | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, response_modalities: "List[Literal['text', 'image', 'audio']] | Omit" = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, store: 'bool | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, stream: 'Literal[False] | Literal[True] | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, system_instruction: 'str | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, tools: 'Iterable[ToolParam] | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, agent: "Union[str, Literal['deep-research-pro-preview-12-2025']] | Omit" = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, agent_config: 'interaction_create_params.AgentConfig | Omit' = <google.genai._interactions.Omit object at 0x000001C2A62D23C0>, extra_headers: 'Headers | None' = None, extra_query: 'Query | None' = None, extra_body: 'Body | None' = None, timeout: 'float | httpx.Timeout | None | NotGiven' = NOT_GIVEN) -> 'Interaction | Stream[InteractionSSEEvent]'
+
+Docstring:
+None

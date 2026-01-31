@@ -1,0 +1,7 @@
+GenAI Version: 1.55.0
+
+Client created.
+Attribute 'chats' found on client.
+
+Signature of client.chats.create:
+(*, model: str, config: Union[google.genai.types.GenerateContentConfig, google.genai.types.GenerateContentConfigDict, NoneType] = None, history: Optional[list[Union[google.genai.types.Content, google.genai.types.ContentDict]]] = None) -> google.genai.chats.Chat

@@ -1,133 +1,130 @@
-"""
-Analysis API Router
-Endpoints for code analysis (CodeQL and full analysis)
-"""
+from fastapi import APIRouter, HTTPException
+from typing import Optional
 
-from fastapi import APIRouter, HTTPException, status
-from typing import Dict
-import logging
-
-from models.requests import CodeQLScanRequest, AnalysisRequest
-from models.responses import CodeQLResponse, AnalysisResponse
+from models.requests import CodeQLScanRequest
+from models.responses import CodeQLResponse
 from services.codeql_service import CodeQLService
 
-# Setup logging
-logger = logging.getLogger(__name__)
+router = APIRouter(prefix="/analysis", tags=["analysis"])
+codeql_service = CodeQLService()
 
-# Create router
-router = APIRouter()
-
-
-@router.post(
-    "/analysis/codeql",
-    response_model=CodeQLResponse,
-    status_code=status.HTTP_200_OK,
-    summary="Run CodeQL analysis",
-    description="Perform static analysis using CodeQL. Returns security and code quality findings.",
-    responses={
-        200: {
-            "description": "Analysis completed successfully",
-            "content": {
-                "application/json": {
-                    "example": {
-                        "repo_id": "a1b2c3d4",
-                        "language": "python",
-                        "findings": [
-                            {
-                                "rule_id": "py/sql-injection",
-                                "severity": "critical",
-                                "message": "Potential SQL injection vulnerability",
-                                "file_path": "src/database/queries.py",
-                                "start_line": 125,
-                                "end_line": 127,
-                                "recommendation": "Use parameterized queries"
-                            }
-                        ],
-                        "total_findings": 15,
-                        "critical_count": 2,
-                        "high_count": 5,
-                        "medium_count": 6,
-                        "low_count": 2
-                    }
-                }
-            }
-        },
-        400: {"description": "Invalid request parameters"},
-        404: {"description": "Repository not found"},
-        500: {"description": "Internal server error or CodeQL not installed"}
-    },
-    tags=["Analysis"]
-)
-async def codeql_analysis(request: CodeQLScanRequest) -> CodeQLResponse:
+@router.post("/codeql", response_model=CodeQLResponse)
+async def run_codeql_scan(request: CodeQLScanRequest):
     """
-    Run CodeQL static analysis on a repository
+    Run CodeQL security and quality analysis on an ingested repository.
     
-    - **repo_id**: Repository identifier
-    - **language**: Programming language (python, javascript, java, etc.)
-    - **query_suite**: Query suite to run (security-extended, security-and-quality, etc.)
+    **Prerequisites:**
+    - Repository must be ingested first (POST /api/ingest)
+    - CodeQL CLI must be installed
     
-    Returns security and code quality findings with severity levels.
+    **Error Codes:**
+    - 404: Repository not found (not ingested)
+    - 422: Invalid language or query suite
+    - 503: CodeQL not available
+    - 504: Operation timeout
+    - 500: Other errors
+    
+    **Example:**
+    ```json
+    {
+      "repo_id": "abc12345",
+      "language": "python",
+      "query_suite": "security-extended"
+    }
+    ```
     """
     try:
-        logger.info(f"Running CodeQL analysis on {request.repo_id} ({request.language})")
-        service = CodeQLService()
-        response = service.analyze_repository(request)
-        logger.info(f"CodeQL analysis completed: {response.total_findings} findings")
-        return response
+        # Check CodeQL availability first
+        if not codeql_service.codeql_available:
+            raise HTTPException(
+                status_code=503,
+                detail={
+                    "error": "CodeQL CLI not available",
+                    "message": "Download from: https://github.com/github/codeql-cli-binaries",
+                    "docs": "https://docs.github.com/en/code-security/codeql-cli"
+                }
+            )
+        
+        # Validate query suite early (before subprocess)
+        try:
+            codeql_service._validate_query_suite(request.query_suite)
+        except ValueError as e:
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "error": "Invalid query suite",
+                    "message": str(e),
+                    "allowed_suites": list(codeql_service.ALLOWED_QUERY_SUITES)
+                }
+            )
+        
+        # Run the full analysis pipeline
+        result = codeql_service.analyze_repository(request)
+        return result
+        
+    except FileNotFoundError as e:
+        # Repository not ingested
+        raise HTTPException(
+            status_code=404,
+            detail={
+                "error": "Repository not found",
+                "message": str(e),
+                "hint": "Run POST /api/ingest first"
+            }
+        )
         
     except ValueError as e:
-        logger.error(f"Validation error: {str(e)}")
+        # Validation error (repo_id format, language mismatch, etc.)
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid request: {str(e)}"
+            status_code=422,
+            detail={
+                "error": "Validation error",
+                "message": str(e)
+            }
         )
-    except FileNotFoundError as e:
-        logger.error(f"Repository not found: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Repository '{request.repo_id}' not found. Please ingest it first."
-        )
-    except RuntimeError as e:
-        error_msg = str(e)
-        logger.error(f"CodeQL analysis failed: {error_msg}")
         
-        # Check if CodeQL is not installed
-        if "not found" in error_msg.lower() or "not installed" in error_msg.lower():
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="CodeQL CLI not installed. Please install from: https://github.com/github/codeql-cli-binaries/releases"
-            )
-        else:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="CodeQL analysis failed. Please check the repository and language settings."
-            )
-    except Exception as e:
-        logger.error(f"CodeQL analysis failed: {str(e)}", exc_info=True)
+    except TimeoutError as e:
+        # Subprocess timeout
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Analysis failed. Please try again."
+            status_code=504,
+            detail={
+                "error": "Operation timeout",
+                "message": str(e)
+            }
         )
-
-
-@router.post(
-    "/analysis/full",
-    status_code=status.HTTP_501_NOT_IMPLEMENTED,
-    summary="Run full repository analysis",
-    description="Orchestrated analysis combining ingestion, search, CodeQL, and AI insights (Phase 2).",
-    responses={
-        501: {"description": "Not implemented (Phase 2 feature)"}
-    },
-    tags=["Analysis"]
-)
-async def full_analysis():
-    """
-    Run full orchestrated analysis (Phase 2 feature)
-    
-    **Note**: This endpoint requires Phase 2 (Gemini Integration) to be implemented.
-    """
-    logger.warning("Full analysis endpoint called but not yet implemented (Phase 2)")
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Full analysis requires Phase 2 (Gemini Integration). Currently only CodeQL analysis is available."
-    )
+        
+    except RuntimeError as e:
+        # CodeQL errors, subprocess failures, etc.
+        error_message = str(e)
+        
+        # Check if it's a CodeQL availability issue
+        if "not available" in error_message.lower():
+            raise HTTPException(status_code=503, detail=str(e))
+        
+        # Other runtime errors
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "error": "Analysis failed",
+                "message": error_message
+            }
+        )
+        
+    except HTTPException:
+        # Re-raise HTTP exceptions (don't catch them in generic handler)
+        raise
+        
+    except Exception as e:
+        # Catch-all for unexpected errors
+        # Log full traceback server-side but don't expose it
+        import traceback
+        print(f"❌ Unexpected error in CodeQL analysis:")
+        print(traceback.format_exc())
+        
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "error": "Internal server error",
+                "message": "An unexpected error occurred. Check server logs."
+            }
+        )

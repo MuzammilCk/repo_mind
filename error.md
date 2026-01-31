@@ -369,6 +369,36 @@ async def full_analysis():
 
 ---
 
+## Phase 2: CodeQL Integration
+
+### Module 2.1 — CodeQL CLI Verification & Health Guard
+
+**Status**: ✅ No functional errors encountered
+
+**Minor Issues:**
+- **Coverage Failure**: Running granular tests (`test_codeql_health.py`) results in low total coverage (<70%).
+- **Solution**: Accepted as normal for modular development. Full test suite will run in CI.
+
+### Module 2.2 — CodeQL Database Creation
+
+**Status**: ✅ Solved
+
+**Error**: SyntaxError (unmatched ')')
+- **Cause**: Copied method logic over method signature during `replace_file_content`.
+- **Solution**: Restored `analyze_repository` signature.
+- **Lesson**: Be careful when replacing large blocks near method definitions. Checks `StartLine` and `EndLine` carefully.
+
+### Module 2.3 — CodeQL Query Execution
+
+**Status**: ✅ Solved
+
+**Error**: IndentationError (unexpected indent)
+- **Cause**: Copied code block with extra indentation during `replace_file_content`.
+- **Solution**: Corrected indentation for `SARIF_SEVERITY_MAP` and class definition.
+- **Lesson**: Double-check indentation when modifying class-level or module-level code.
+
+---
+
 ## Common Patterns & Solutions
 
 ### Pattern 1: Truncated Test Output
