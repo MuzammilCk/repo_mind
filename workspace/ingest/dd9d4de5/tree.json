@@ -1,0 +1,16 @@
+{
+  "type": "directory",
+  "name": "binary_repo",
+  "children": [
+    {
+      "type": "file",
+      "name": "binary.bin",
+      "size": 8
+    },
+    {
+      "type": "file",
+      "name": "text.txt",
+      "size": 22
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "directory",
+  "name": "hidden_repo",
+  "children": [
+    {
+      "type": "file",
+      "name": "visible.txt",
+      "size": 7
+    }
+  ]
+}

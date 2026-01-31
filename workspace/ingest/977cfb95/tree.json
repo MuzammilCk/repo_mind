@@ -1,0 +1,16 @@
+{
+  "type": "directory",
+  "name": "large_repo",
+  "children": [
+    {
+      "type": "file",
+      "name": "large.txt",
+      "size": 201000
+    },
+    {
+      "type": "file",
+      "name": "normal.txt",
+      "size": 16
+    }
+  ]
+}

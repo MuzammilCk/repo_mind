@@ -1,0 +1,11 @@
+{
+  "type": "directory",
+  "name": "encoding_repo",
+  "children": [
+    {
+      "type": "file",
+      "name": "latin1.txt",
+      "size": 11
+    }
+  ]
+}

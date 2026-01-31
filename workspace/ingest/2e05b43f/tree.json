@@ -1,0 +1,2679 @@
+{
+  "type": "directory",
+  "name": "source",
+  "children": [
+    {
+      "type": "directory",
+      "name": "backend",
+      "children": [
+        {
+          "type": "directory",
+          "name": "config",
+          "children": [
+            {
+              "type": "file",
+              "name": "logger.js",
+              "size": 2292
+            }
+          ]
+        },
+        {
+          "type": "directory",
+          "name": "controllers",
+          "children": [
+            {
+              "type": "file",
+              "name": "admin.js",
+              "size": 13157
+            },
+            {
+              "type": "file",
+              "name": "aiSymptomChecker.js",
+              "size": 11068
+            },
+            {
+              "type": "file",
+              "name": "auth.js",
+              "size": 7570
+            },
+            {
+              "type": "file",
+              "name": "bills.js",
+              "size": 10867
+            },
+            {
+              "type": "file",
+              "name": "doctors.js",
+              "size": 35575
+            },
+            {
+              "type": "file",
+              "name": "inventory.js",
+              "size": 10469
+            },
+            {
+              "type": "file",
+              "name": "medicalHistory.js",
+              "size": 7528
+            },
+            {
+              "type": "file",
+              "name": "mockPayments.js",
+              "size": 14760
+            },
+            {
+              "type": "file",
+              "name": "notifications.js",
+              "size": 5721
+            },
+            {
+              "type": "file",
+              "name": "patients.js",
+              "size": 32969
+            },
+            {
+              "type": "file",
+              "name": "payments.js",
+              "size": 10010
+            },
+            {
+              "type": "file",
+              "name": "pharmacy.js",
+              "size": 2330
+            },
+            {
+              "type": "file",
+              "name": "profile.js",
+              "size": 9359
+            },
+            {
+              "type": "file",
+              "name": "specializations.js",
+              "size": 2560
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "name": "doctor.csv",
+          "size": 94450
+        },
+        {
+          "type": "directory",
+          "name": "middleware",
+          "children": [
+            {
+              "type": "file",
+              "name": "auth.js",
+              "size": 1546
+            },
+            {
+              "type": "file",
+              "name": "errorHandler.js",
+              "size": 2217
+            },
+            {
+              "type": "file",
+              "name": "security.js",
+              "size": 6436
+            }
+          ]
+        },
+        {
+          "type": "directory",
+          "name": "models",
+          "children": [
+            {
+              "type": "file",
+              "name": "Appointment.js",
+              "size": 1378
+            },
+            {
+              "type": "file",
+              "name": "Bill.js",
+              "size": 1769
+            },
+            {
+              "type": "file",
+              "name": "Doctor.js",
+              "size": 2159
+            },
+            {
+              "type": "file",
+              "name": "Hospital.js",
+              "size": 1054
+            },
+            {
+              "type": "file",
+              "name": "Inventory.js",
+              "size": 2430
+            },
+            {
+              "type": "file",
+              "name": "MedicalHistory.js",
+              "size": 3577
+            },
+            {
+              "type": "file",
+              "name": "Notification.js",
+              "size": 660
+            },
+            {
+              "type": "file",
+              "name": "Payment.js",
+              "size": 1493
+            },
+            {
+              "type": "file",
+              "name": "Prescription.js",
+              "size": 1780
+            },
+            {
+              "type": "file",
+              "name": "Specialization.js",
+              "size": 314
+            },
+            {
+              "type": "file",
+              "name": "SymptomCheckLog.js",
+              "size": 933
+            },
+            {
+              "type": "file",
+              "name": "User.js",
+              "size": 1564
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "name": "package-lock.json",
+          "size": 112530
+        },
+        {
+          "type": "file",
+          "name": "package.json",
+          "size": 981
+        },
+        {
+          "type": "directory",
+          "name": "public",
+          "children": [
+            {
+              "type": "directory",
+              "name": "doctor-photos",
+              "children": [
+                {
+                  "type": "directory",
+                  "name": "female",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "imgi_101_an-indian-asian-female-medical-doctor-in-a-hospital-office-with-stethoscope-photo.jpg",
+                      "size": 12302
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_101_c5a3904b38eb241dd03dd30889599dc4.jpg",
+                      "size": 39472
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_102_depositphotos_33138301-stock-photo-doctor-with-her-arms-crossed.jpg",
+                      "size": 27237
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_105_1da10bfc-a25c-4114-96cf-64e1ab0bfe0b.png",
+                      "size": 1636917
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_105_360_F_367418688_ze9N1Ap7CUfWQe8te6axtniyLt9Ch5VX.jpg",
+                      "size": 34562
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_106_360_F_114892812_Va0KWhvmSUOoYNEoHCAOJ8uYXzBiD8vY.jpg",
+                      "size": 18563
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_108_360_F_772997617_o21dAD6HIBSN4IeVHFDHMW782Hz45R7Z.jpg",
+                      "size": 21926
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_109_360_F_878491980_oslv4Go5Do77d5WvyJ7duSm4ucmPR7Oa.jpg",
+                      "size": 22796
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_10_default.jpg",
+                      "size": 9093
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_111_360_F_536114849_bvWlMFZPVgXoCzKnhRbm1iAXbvwMXpCa.jpg",
+                      "size": 15541
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_114_female-doctor-standing-healthcare-lobby-with-scrubs-stethoscope-lab-coat-copy-space_13339-379269.jpg",
+                      "size": 47271
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_117_56da7717131ce6d7e1ca754717548b7f.jpg",
+                      "size": 46363
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_117_depositphotos_51131735-stock-photo-doctor-indian.jpg",
+                      "size": 41569
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_11_default.jpg",
+                      "size": 10204
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_120_360_F_885113989_ViolmRLqoXzMBm56wB9eY6TUckICbVC0.jpg",
+                      "size": 20762
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_122_e40ce800-463c-4e0f-aaf1-e3b84ac1dd0a.png",
+                      "size": 1702603
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_123_ai-generated-8896724_640.png",
+                      "size": 768391
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_123_portrait-smiling-confident-beautiful-young-260nw-2107627397.jpg",
+                      "size": 18907
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_125_360_F_815794323_qnONGVnSTxmvl8ylM2MV7zR5B02u1f7Q.jpg",
+                      "size": 27352
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_128_37f32dfe-82fc-44e0-9aba-d9768a7fd6c5.png",
+                      "size": 1745042
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_12_default.jpg",
+                      "size": 8507
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_132_360_F_536114849_bvWlMFZPVgXoCzKnhRbm1iAXbvwMXpCa.jpg",
+                      "size": 15541
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_134_360_F_698056222_llz8ELIw40LcRm1RXPUsgsYbtUpwh8sx.jpg",
+                      "size": 29067
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_137_depositphotos_546073078-stock-photo-indian-female-doctor-portrait-south.jpg",
+                      "size": 23587
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_138_360_F_1187958255_rkzQwK2xBnxFf0RI5KV9n6qpYMbSmNbT.jpg",
+                      "size": 19530
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_138_indian-female-doctor-using-stethoscope-260nw-2313987685.jpg",
+                      "size": 30777
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_13_default.jpg",
+                      "size": 10211
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_140_d621a3e3-1b13-4b74-8ac2-d5c89cb2a886.png",
+                      "size": 1957854
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_141_serious-professional-doctor_23-2147642815.jpg",
+                      "size": 47180
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_146_360_F_77161499_tKvY6PBucWUl0TgZlpXZL3ZiGIu3BoNu.jpg",
+                      "size": 20582
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_14_default.jpg",
+                      "size": 8631
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_154_confident-young-female-doctor-medical-professional-hospital-portrait-standing-clinic-hallway-windows-background-positive-51680510.jpg",
+                      "size": 60350
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_157_studio-shot-of-young-beautiful-indian-woman-doctor-holding-steth-PWKNFD.jpg",
+                      "size": 79853
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_15_default.jpg",
+                      "size": 10357
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_164_smiling-beautiful-young-indian-ethnicity-600nw-2032673660.jpg",
+                      "size": 35132
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_19_default.jpg",
+                      "size": 7130
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_20_default.jpg",
+                      "size": 5810
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_23_default.jpg",
+                      "size": 9915
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_26_default.jpg",
+                      "size": 9930
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_28_default.jpg",
+                      "size": 7571
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_33_default.jpg",
+                      "size": 6341
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_3_default.jpg",
+                      "size": 10964
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_55_indian-female-doctor-indian-nurse_714173-208.jpg",
+                      "size": 62023
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_56_ai-generated-an-indian-young-female-doctor-isolated-on-light-blue-background-generated-by-artificial-intelligence-ph.jpg",
+                      "size": 330286
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_57_portrait-young-beautiful-smiling-indian-female-doctor-standing-isolated-background_1025753-91537.jpg",
+                      "size": 52961
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_58_indian-female-doctor-indian-nurse_714173-199.jpg",
+                      "size": 66208
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_59_ai-generated-an-indian-young-female-doctor-isolated-on-light-blue-background-generated-by-artificial-intelligence-ph.jpg",
+                      "size": 27046
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_60_indian-female-doctor_1309256-3.jpg",
+                      "size": 35194
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_61_indian-female-doctor-hospital-generative-ai_849906-19012.jpg",
+                      "size": 38947
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_62_portrait-young-beautiful-smiling-indian-female-doctor-standing-isolated-background_1025753-91569.jpg",
+                      "size": 35783
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_63_ai-generated-middle-aged-indian-female-doctor-in-blue-scrubs-smiling-looking-in-camera-woman-medic-professional-hosp.jpg",
+                      "size": 392001
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_64_an-indian-young-female-doctor-isolated-on-green-ai-generated-photo.jpg",
+                      "size": 302276
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_66_photograph-indian-female-doctor-hospital-generative-ai_849906-19015.jpg",
+                      "size": 41870
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_67_realistic-happy-indian-female-beautiful-medical_1029679-55473.jpg",
+                      "size": 22091
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_68_9f116a5a59c8f8659ba2b0170eee7a23.jpg",
+                      "size": 107360
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_69_beautiful-indian-female-doctor-hospital-generative-ai_849906-19013.jpg",
+                      "size": 39053
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_71_an-indian-asian-female-medical-doctor-in-a-hospital-office-with-stethoscope-photo.jpg",
+                      "size": 70432
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_73_ai-generated-an-indian-young-female-doctor-isolated-on-light-blue-background-generated-by-artificial-intelligence-ph.jpg",
+                      "size": 9882
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_74_0b54fc8916eb0d17d31454f9e4d2763d.jpg",
+                      "size": 91976
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_74_indian-young-female-doctor-posing-600nw-1102863605.jpg",
+                      "size": 33103
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_75_360_F_320744517_TaGkT7aRlqqWdfGUuzRKDABtFEoN5CiO.jpg",
+                      "size": 19745
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_75_pretty-brunette-doctor-cabinet_151013-61318.jpg",
+                      "size": 41200
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_76_7f7df976-9c07-4055-a754-9b420aa88852.png",
+                      "size": 1838258
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_76_young-indian-female-doctor-showing-thumbs-up-white-background-62407006.jpg",
+                      "size": 60963
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_78_be8a30cd-4f09-43b7-a869-afe7043ccff1.png",
+                      "size": 1688821
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_7_default.jpg",
+                      "size": 9222
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_80_indian-beautiful-female-doctor-18398918.jpg",
+                      "size": 46426
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_81_a32f4ed8-322d-43ae-b231-d05469c2fe04.png",
+                      "size": 1758699
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_82_360_F_815794296_rJLRF4O01TDrKZB5PnnAiHvFJ5vuDYdY.jpg",
+                      "size": 23801
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_83_depositphotos_546075446-stock-photo-indian-female-doctor-portrait-south.jpg",
+                      "size": 33614
+                    }
+                  ]
+                },
+                {
+                  "type": "directory",
+                  "name": "male",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "imgi_100_professional-doctor-smiling-indian-man-260nw-2558930119.jpg",
+                      "size": 16656
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_100_studio-shot-young-handsome-indian-man-doctor-against-gray_251136-12627.jpg",
+                      "size": 27414
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_101_young-indian-man-doctor-against-gray-wall_251136-6352.jpg",
+                      "size": 29933
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_102_portrait-of-happy-friendly-male-indian-latin-doctor-medical-worker-wearing-white-coat-with-stethoscope-around-neck-standing-in-mode.jpg",
+                      "size": 9756
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_103_360_F_300220248_VKEd3QKx31kzqHcwZfnGmWKZLYTjf8R0.jpg",
+                      "size": 21679
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_104_young-indian-doctor-man-wearing-260nw-1571914483.jpg",
+                      "size": 19896
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_106_young-doctor-getting-ready-work_23-2149393691.jpg",
+                      "size": 43808
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_107_smiling-indian-male-doctor-pediatric-260nw-2154207585.jpg",
+                      "size": 17967
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_110_360_F_269989951_9Gf7PWaRtrpm2EochO3D5WVn22sFZbNZ.jpg",
+                      "size": 21368
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_111_e42b6cd5-f70b-4faf-9bf9-734a6bbec8e1.png",
+                      "size": 1752125
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_112_portrait-male-doctor-wearing-eyeglasses-260nw-2297365631.jpg",
+                      "size": 27260
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_113_portrait-of-a-asian-indian-male-medical-doctor-in-uniform-photo.jpg",
+                      "size": 34600
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_114_ai-generated-8578389_960_720.png",
+                      "size": 868647
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_117_medical-doctor-posing-darkness_23-2147650221.jpg",
+                      "size": 45275
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_118_7452b9d2-c6b0-49bc-a8e1-3cc2d1a7cd3d.png",
+                      "size": 2102245
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_119_360_F_190013243_Kc276iuDgu0CuUwIY2JbO85DZM5yfZnp.jpg",
+                      "size": 33666
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_120_ai-generated-9019727_1280.png",
+                      "size": 2983149
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_124_ai-generated-young-handsome-doctor-with-stethoscope-isolated-free-photo.jpg",
+                      "size": 260901
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_125_4c1c9edd3857a345d9c4868d7f1ce83d.jpg",
+                      "size": 45701
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_126_asian-model-indian-men-model-harsh-puranam-as-doctor-professional-doctor-attire-poses_788415-8754.jpg",
+                      "size": 26257
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_128_pngtree-ai-generated-young-handsome-doctor-with-stethoscope-art-png-image_15357483.png",
+                      "size": 4466677
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_129_handsome-indianasian-senior-doctor-physician-260nw-1137054731.jpg",
+                      "size": 14036
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_131_360_F_594467718_8VcaoxOOfEimkY0BDrF7jZLwp0HmdVZH.jpg",
+                      "size": 31979
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_138_portrait-happy-friendly-male-indian-260nw-2033522228.jpg",
+                      "size": 23364
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_139_portrait-indian-male-doctor-with-stethoscope-hospital-corridor_979520-64773.jpg",
+                      "size": 66708
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_140_360_F_453912087_7Ktt8j0ZrJvFTCjjGBxPOlIhE5c2Q8YD.jpg",
+                      "size": 30590
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_141_portrait-of-a-handsome-male-doctor-on-dark-background-healthcare-and-medicine-ai-generated-photo.jpg",
+                      "size": 346778
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_142_360_F_257486764_GnnrHRNIBV93mAwR0aiNkS0x5UjDfIcl.jpg",
+                      "size": 17335
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_144_young-male-doctor_862994-525150.jpg",
+                      "size": 53562
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_145_1000_F_567936255_0ejH1j0ZYRH9EUhs5TmBNQURTTPo0QG4.jpg",
+                      "size": 119730
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_147_close-up-portrait-of-a-young-indian-male-doctor-standing-outside-a-clinical-center-in-a-white-coat-and-smiling-at-the-camera-photo.jpg",
+                      "size": 378418
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_148_portrait-serious-pensive-bearded-professional-260nw-2558930189.jpg",
+                      "size": 20239
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_149_360_F_600665935_ITJzjYWixSVVquI1TNsmoGEkdytYVvhQ.jpg",
+                      "size": 24526
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_14_default.jpg",
+                      "size": 10508
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_151_asian-indian-male-medical-doctor-portrait-smiling-standing-inside-hospital-holding-file-folder-39231981.jpg",
+                      "size": 35897
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_151_c6f9d38e84cf7ae7889d9fea70ee1e65.jpg",
+                      "size": 80876
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_155_portrait-indian-young-male-medical-260nw-81159103.jpg",
+                      "size": 14936
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_156_portrait-happy-successful-hindu-doctor-young-medical-practitioner-smiling-looking_321831-17342.jpg",
+                      "size": 37579
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_157_indian-doctor-28013102.jpg",
+                      "size": 75166
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_16_default.jpg",
+                      "size": 7107
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_18_default.jpg",
+                      "size": 8636
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_21_default.jpg",
+                      "size": 7563
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_23_default.jpg",
+                      "size": 9398
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_26_default.jpg",
+                      "size": 9877
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_3_default.jpg",
+                      "size": 10713
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_59_indian-doctor-smiling-face_1197144-1038.jpg",
+                      "size": 68887
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_5_default.jpg",
+                      "size": 7563
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_60_a-mature-indian-male-doctor-on-a-white-background-ai-generated-photo.jpg",
+                      "size": 264405
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_61_young-indian-male-doctor_437792-301.jpg",
+                      "size": 72535
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_62_young-male-indian-doctor-in-a-white-coat-generative-ai-photo.jpg",
+                      "size": 419612
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_63_confident-friendly-indian-male-doctor-600w-2603862439.jpg",
+                      "size": 56519
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_65_handsome-indian-doctor-care-generate-ai-photo.jpg",
+                      "size": 347471
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_66_360_F_707893394_5DEhlBjWOmse1nyu0rC9T7ZRvsAFDkYC.jpg",
+                      "size": 17458
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_66_young-indian-male-doctor-with-little-smile_973056-9.jpg",
+                      "size": 40134
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_67_handsome-indian-doctor-generate-ai-photo.jpg",
+                      "size": 361823
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_68_smiling-middleaged-indian-doctor-standing-medical-uniform-against-gray-wallcreated-with-generative-ai-technology_132358-7688.jpg",
+                      "size": 26808
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_69_45years-old-indian-doctor-speaking-mobile-phone-with-someone-pleasant-look-ultra-realistic-ultra-wide-shot-style-raw-stylize-250-job.jpg",
+                      "size": 78923
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_70_professional-indian-male-doctor-isolated-white-background_878783-9865.jpg",
+                      "size": 43682
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_72_360_F_707893394_5DEhlBjWOmse1nyu0rC9T7ZRvsAFDkYC.jpg",
+                      "size": 17458
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_73_smiling-bearded-male-indian-doctor-600nw-2036186171.jpg",
+                      "size": 44765
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_75_ai-generated-8965801_1280.png",
+                      "size": 1396094
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_76_360_F_602255772_9u1hkJnD9tAyqnrL89XYtbM9RykuDxnf.jpg",
+                      "size": 28890
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_77_indian-male-doctor-consulting-senior-old-patient-healthcare-generative-ai_896194-4019.jpg",
+                      "size": 48435
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_79_india-male-doctor-hospital-office_1028264-9361.jpg",
+                      "size": 34221
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_7_default.jpg",
+                      "size": 12386
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_81_360_F_681624470_Bove01iM9IM8fxlgEOGdnntS3zBKjsxK.jpg",
+                      "size": 18933
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_81_young-handsome-indian-man-doctor_251136-50316.jpg",
+                      "size": 25041
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_82_young-indian-male-doctor-with-okay-sign-in-white-uniform-with-collegues-WJA222.jpg",
+                      "size": 115359
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_83_portrait-of-happy-friendly-male-indian-latin-doctor-medical-worker-wearing-white-coat-with-stethoscope-around-neck-standing-in-moder.jpg",
+                      "size": 28445
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_83_young-indian-male-doctor-surgeon-stethoscope-gray-background-handsome-young-indian-male-doctor-surgeon-198446348.jpg",
+                      "size": 30045
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_85_indian-doctor-man-happy-background-clothing-medical_53876-528275.jpg",
+                      "size": 39052
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_87_c-1000-designbundle-indian-handsome-doctor-07-10-e459e24928be9e2a86b334f955ea40728084dd786dbf1ba8277c47ea31a9ed58.jpg",
+                      "size": 186472
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_8_default.jpg",
+                      "size": 12019
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_90_ai-generated-8655320_640.png",
+                      "size": 689143
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_91_happy-young-cheerful-bearded-doctor-260nw-2291471151.jpg",
+                      "size": 15529
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_93_50159ca5d36fc51d920209e41a414d0f.jpg",
+                      "size": 27722
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_94_ai-generated-8109581_1280.jpg",
+                      "size": 173701
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_95_360_F_636814944_b9kQP3PKOE7VHEgc8ElpreRbPhgUAqNs.jpg",
+                      "size": 31289
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_96_confident-male-doctor-with-stethoscope-standing-in-a-clinic-with-arms-crossed-photo.jpg",
+                      "size": 119757
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_97_b8d07f10-c420-4c36-9fad-7a33ed05287e.png",
+                      "size": 1637150
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_99_ai-generated-9019520_640.png",
+                      "size": 431794
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_9_default.jpg",
+                      "size": 10145
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "directory",
+          "name": "routes",
+          "children": [
+            {
+              "type": "file",
+              "name": "admin.js",
+              "size": 1339
+            },
+            {
+              "type": "file",
+              "name": "aiSymptomChecker.js",
+              "size": 751
+            },
+            {
+              "type": "file",
+              "name": "auth.js",
+              "size": 1914
+            },
+            {
+              "type": "file",
+              "name": "bills.js",
+              "size": 828
+            },
+            {
+              "type": "file",
+              "name": "doctors.js",
+              "size": 1599
+            },
+            {
+              "type": "file",
+              "name": "inventory.js",
+              "size": 1043
+            },
+            {
+              "type": "file",
+              "name": "medicalHistory.js",
+              "size": 943
+            },
+            {
+              "type": "file",
+              "name": "mockPayments.js",
+              "size": 767
+            },
+            {
+              "type": "file",
+              "name": "notifications.js",
+              "size": 1264
+            },
+            {
+              "type": "file",
+              "name": "patients.js",
+              "size": 1412
+            },
+            {
+              "type": "file",
+              "name": "payments.js",
+              "size": 839
+            },
+            {
+              "type": "file",
+              "name": "pharmacy.js",
+              "size": 325
+            },
+            {
+              "type": "file",
+              "name": "profile.js",
+              "size": 2465
+            },
+            {
+              "type": "file",
+              "name": "specializations.js",
+              "size": 774
+            }
+          ]
+        },
+        {
+          "type": "directory",
+          "name": "scripts",
+          "children": [
+            {
+              "type": "file",
+              "name": "clearDatabase.js",
+              "size": 1769
+            },
+            {
+              "type": "directory",
+              "name": "migrations",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "updateBillItemDescriptions.js",
+                  "size": 1732
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "name": "seedDoctors.js",
+          "size": 10206
+        },
+        {
+          "type": "file",
+          "name": "seedHospital.js",
+          "size": 6138
+        },
+        {
+          "type": "file",
+          "name": "seedHospitals.js",
+          "size": 5774
+        },
+        {
+          "type": "file",
+          "name": "seedInitialData.js",
+          "size": 3122
+        },
+        {
+          "type": "file",
+          "name": "seedInventory.js",
+          "size": 12207
+        },
+        {
+          "type": "file",
+          "name": "seedKycVerified.js",
+          "size": 769
+        },
+        {
+          "type": "file",
+          "name": "server.js",
+          "size": 6529
+        },
+        {
+          "type": "file",
+          "name": "test-profile-setup.js",
+          "size": 3866
+        },
+        {
+          "type": "directory",
+          "name": "uploads",
+          "children": [
+            {
+              "type": "directory",
+              "name": "profiles",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "profile_68d699866c5db44ffcdef53a_1759083718652.jpg",
+                  "size": 2319
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "directory",
+          "name": "utils",
+          "children": [
+            {
+              "type": "file",
+              "name": "assignDoctorImages.js",
+              "size": 8441
+            },
+            {
+              "type": "file",
+              "name": "createNotification.js",
+              "size": 4019
+            },
+            {
+              "type": "file",
+              "name": "generateDoctorImage.js",
+              "size": 6482
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "name": "verifyDoctorImages.js",
+          "size": 1892
+        },
+        {
+          "type": "file",
+          "name": "verifyGenderAssignments.js",
+          "size": 5251
+        }
+      ]
+    },
+    {
+      "type": "directory",
+      "name": "frontend",
+      "children": [
+        {
+          "type": "file",
+          "name": "components.json",
+          "size": 486
+        },
+        {
+          "type": "file",
+          "name": "index.html",
+          "size": 307
+        },
+        {
+          "type": "file",
+          "name": "package-lock.json",
+          "size": 94596
+        },
+        {
+          "type": "file",
+          "name": "package.json",
+          "size": 776
+        },
+        {
+          "type": "file",
+          "name": "postcss.config.js",
+          "size": 86
+        },
+        {
+          "type": "directory",
+          "name": "public",
+          "children": [
+            {
+              "type": "file",
+              "name": "bg-video.mp4",
+              "size": 884895
+            },
+            {
+              "type": "file",
+              "name": "Doctor checking patient report.mp4",
+              "size": 387557
+            },
+            {
+              "type": "file",
+              "name": "doctor.gif",
+              "size": 198466
+            },
+            {
+              "type": "file",
+              "name": "image.png",
+              "size": 833471
+            },
+            {
+              "type": "file",
+              "name": "img.png",
+              "size": 764096
+            },
+            {
+              "type": "file",
+              "name": "patient.gif",
+              "size": 164002
+            },
+            {
+              "type": "file",
+              "name": "Screening & Diagnosis.gif",
+              "size": 180714
+            },
+            {
+              "type": "file",
+              "name": "seedream-4-2k_Resize_and_adapt_the.jpeg",
+              "size": 456140
+            }
+          ]
+        },
+        {
+          "type": "directory",
+          "name": "src",
+          "children": [
+            {
+              "type": "file",
+              "name": "App.jsx",
+              "size": 946
+            },
+            {
+              "type": "directory",
+              "name": "assets",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "1.png",
+                  "size": 1303694
+                },
+                {
+                  "type": "file",
+                  "name": "2.png",
+                  "size": 1194839
+                },
+                {
+                  "type": "file",
+                  "name": "3.png",
+                  "size": 1153339
+                },
+                {
+                  "type": "file",
+                  "name": "4.png",
+                  "size": 1247340
+                },
+                {
+                  "type": "file",
+                  "name": "about.png",
+                  "size": 559705
+                },
+                {
+                  "type": "file",
+                  "name": "compound.gif",
+                  "size": 901661
+                },
+                {
+                  "type": "file",
+                  "name": "contact.png",
+                  "size": 771693
+                },
+                {
+                  "type": "directory",
+                  "name": "female doctors",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "imgi_101_an-indian-asian-female-medical-doctor-in-a-hospital-office-with-stethoscope-photo.jpg",
+                      "size": 12302
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_101_c5a3904b38eb241dd03dd30889599dc4.jpg",
+                      "size": 39472
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_102_depositphotos_33138301-stock-photo-doctor-with-her-arms-crossed.jpg",
+                      "size": 27237
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_105_1da10bfc-a25c-4114-96cf-64e1ab0bfe0b.png",
+                      "size": 1636917
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_105_360_F_367418688_ze9N1Ap7CUfWQe8te6axtniyLt9Ch5VX.jpg",
+                      "size": 34562
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_106_360_F_114892812_Va0KWhvmSUOoYNEoHCAOJ8uYXzBiD8vY.jpg",
+                      "size": 18563
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_108_360_F_772997617_o21dAD6HIBSN4IeVHFDHMW782Hz45R7Z.jpg",
+                      "size": 21926
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_109_360_F_878491980_oslv4Go5Do77d5WvyJ7duSm4ucmPR7Oa.jpg",
+                      "size": 22796
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_10_default.jpg",
+                      "size": 9093
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_111_360_F_536114849_bvWlMFZPVgXoCzKnhRbm1iAXbvwMXpCa.jpg",
+                      "size": 15541
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_114_female-doctor-standing-healthcare-lobby-with-scrubs-stethoscope-lab-coat-copy-space_13339-379269.jpg",
+                      "size": 47271
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_117_56da7717131ce6d7e1ca754717548b7f.jpg",
+                      "size": 46363
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_117_depositphotos_51131735-stock-photo-doctor-indian.jpg",
+                      "size": 41569
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_11_default.jpg",
+                      "size": 10204
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_120_360_F_885113989_ViolmRLqoXzMBm56wB9eY6TUckICbVC0.jpg",
+                      "size": 20762
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_122_e40ce800-463c-4e0f-aaf1-e3b84ac1dd0a.png",
+                      "size": 1702603
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_123_ai-generated-8896724_640.png",
+                      "size": 768391
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_123_portrait-smiling-confident-beautiful-young-260nw-2107627397.jpg",
+                      "size": 18907
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_125_360_F_815794323_qnONGVnSTxmvl8ylM2MV7zR5B02u1f7Q.jpg",
+                      "size": 27352
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_128_37f32dfe-82fc-44e0-9aba-d9768a7fd6c5.png",
+                      "size": 1745042
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_12_default.jpg",
+                      "size": 8507
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_132_360_F_536114849_bvWlMFZPVgXoCzKnhRbm1iAXbvwMXpCa.jpg",
+                      "size": 15541
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_134_360_F_698056222_llz8ELIw40LcRm1RXPUsgsYbtUpwh8sx.jpg",
+                      "size": 29067
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_137_depositphotos_546073078-stock-photo-indian-female-doctor-portrait-south.jpg",
+                      "size": 23587
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_138_360_F_1187958255_rkzQwK2xBnxFf0RI5KV9n6qpYMbSmNbT.jpg",
+                      "size": 19530
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_138_indian-female-doctor-using-stethoscope-260nw-2313987685.jpg",
+                      "size": 30777
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_13_default.jpg",
+                      "size": 10211
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_140_d621a3e3-1b13-4b74-8ac2-d5c89cb2a886.png",
+                      "size": 1957854
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_141_serious-professional-doctor_23-2147642815.jpg",
+                      "size": 47180
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_146_360_F_77161499_tKvY6PBucWUl0TgZlpXZL3ZiGIu3BoNu.jpg",
+                      "size": 20582
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_14_default.jpg",
+                      "size": 8631
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_154_confident-young-female-doctor-medical-professional-hospital-portrait-standing-clinic-hallway-windows-background-positive-51680510.jpg",
+                      "size": 60350
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_157_studio-shot-of-young-beautiful-indian-woman-doctor-holding-steth-PWKNFD.jpg",
+                      "size": 79853
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_15_default.jpg",
+                      "size": 10357
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_164_smiling-beautiful-young-indian-ethnicity-600nw-2032673660.jpg",
+                      "size": 35132
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_19_default.jpg",
+                      "size": 7130
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_20_default.jpg",
+                      "size": 5810
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_23_default.jpg",
+                      "size": 9915
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_26_default.jpg",
+                      "size": 9930
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_28_default.jpg",
+                      "size": 7571
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_33_default.jpg",
+                      "size": 6341
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_3_default.jpg",
+                      "size": 10964
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_55_indian-female-doctor-indian-nurse_714173-208.jpg",
+                      "size": 62023
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_56_ai-generated-an-indian-young-female-doctor-isolated-on-light-blue-background-generated-by-artificial-intelligence-ph.jpg",
+                      "size": 330286
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_57_portrait-young-beautiful-smiling-indian-female-doctor-standing-isolated-background_1025753-91537.jpg",
+                      "size": 52961
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_58_indian-female-doctor-indian-nurse_714173-199.jpg",
+                      "size": 66208
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_59_ai-generated-an-indian-young-female-doctor-isolated-on-light-blue-background-generated-by-artificial-intelligence-ph.jpg",
+                      "size": 27046
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_60_indian-female-doctor_1309256-3.jpg",
+                      "size": 35194
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_61_indian-female-doctor-hospital-generative-ai_849906-19012.jpg",
+                      "size": 38947
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_62_portrait-young-beautiful-smiling-indian-female-doctor-standing-isolated-background_1025753-91569.jpg",
+                      "size": 35783
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_63_ai-generated-middle-aged-indian-female-doctor-in-blue-scrubs-smiling-looking-in-camera-woman-medic-professional-hosp.jpg",
+                      "size": 392001
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_64_an-indian-young-female-doctor-isolated-on-green-ai-generated-photo.jpg",
+                      "size": 302276
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_66_photograph-indian-female-doctor-hospital-generative-ai_849906-19015.jpg",
+                      "size": 41870
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_67_realistic-happy-indian-female-beautiful-medical_1029679-55473.jpg",
+                      "size": 22091
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_68_9f116a5a59c8f8659ba2b0170eee7a23.jpg",
+                      "size": 107360
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_69_beautiful-indian-female-doctor-hospital-generative-ai_849906-19013.jpg",
+                      "size": 39053
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_71_an-indian-asian-female-medical-doctor-in-a-hospital-office-with-stethoscope-photo.jpg",
+                      "size": 70432
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_73_ai-generated-an-indian-young-female-doctor-isolated-on-light-blue-background-generated-by-artificial-intelligence-ph.jpg",
+                      "size": 9882
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_74_0b54fc8916eb0d17d31454f9e4d2763d.jpg",
+                      "size": 91976
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_74_indian-young-female-doctor-posing-600nw-1102863605.jpg",
+                      "size": 33103
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_75_360_F_320744517_TaGkT7aRlqqWdfGUuzRKDABtFEoN5CiO.jpg",
+                      "size": 19745
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_75_pretty-brunette-doctor-cabinet_151013-61318.jpg",
+                      "size": 41200
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_76_7f7df976-9c07-4055-a754-9b420aa88852.png",
+                      "size": 1838258
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_76_young-indian-female-doctor-showing-thumbs-up-white-background-62407006.jpg",
+                      "size": 60963
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_78_be8a30cd-4f09-43b7-a869-afe7043ccff1.png",
+                      "size": 1688821
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_7_default.jpg",
+                      "size": 9222
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_80_indian-beautiful-female-doctor-18398918.jpg",
+                      "size": 46426
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_81_a32f4ed8-322d-43ae-b231-d05469c2fe04.png",
+                      "size": 1758699
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_82_360_F_815794296_rJLRF4O01TDrKZB5PnnAiHvFJ5vuDYdY.jpg",
+                      "size": 23801
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_83_depositphotos_546075446-stock-photo-indian-female-doctor-portrait-south.jpg",
+                      "size": 33614
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_84_c5a3904b38eb241dd03dd30889599dc4.jpg",
+                      "size": 39472
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_84_young-female-doctor-front-view-wearing-coat-stethoscope-around-neck-indian-pakistani-model_561639-131.jpg",
+                      "size": 31533
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_85_ai-generated-8585220_640.png",
+                      "size": 558911
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_86_360_F_77161499_tKvY6PBucWUl0TgZlpXZL3ZiGIu3BoNu.jpg",
+                      "size": 20582
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_86_portrait-young-lady-doctor-600nw-2473538999.jpg",
+                      "size": 28939
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_87_ai-generated-a-female-doctor-around-40-years-old-in-a-white-coat-and-stethoscope-from-the-front-a-slight-smile-hands.jpg",
+                      "size": 88266
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_88_360_F_647162966_SFu8GP6awkeW0OnFnAxPjiGXSoeme4ht.jpg",
+                      "size": 24667
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_88_an-indian-young-female-doctor-isolated-on-green-ai-generated-photo.jpg",
+                      "size": 8800
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_8_default.jpg",
+                      "size": 12406
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_90_360_F_320744517_TaGkT7aRlqqWdfGUuzRKDABtFEoN5CiO.jpg",
+                      "size": 19745
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_90_360_F_878491980_oslv4Go5Do77d5WvyJ7duSm4ucmPR7Oa.jpg",
+                      "size": 22796
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_92_360_F_367418688_ze9N1Ap7CUfWQe8te6axtniyLt9Ch5VX.jpg",
+                      "size": 34562
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_96_360_F_472164755_Her4lvdu74u85ezegfzPEZqm09wMkkv9.jpg",
+                      "size": 25948
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_97_depositphotos_79610538-stock-photo-young-female-doctor-with-tablet.jpg",
+                      "size": 35704
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_97_young-beautiful-indian-woman-doctor-wearing-protective-glasses-o-PWKNJD.jpg",
+                      "size": 103278
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_98_studio-shot-young-beautiful-indian-woman-doctor-with-arms-cro_251136-52399.jpg",
+                      "size": 26697
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_9_default.jpg",
+                      "size": 8014
+                    }
+                  ]
+                },
+                {
+                  "type": "file",
+                  "name": "Health Load animation.gif",
+                  "size": 45335
+                },
+                {
+                  "type": "directory",
+                  "name": "male doctors",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "imgi_100_professional-doctor-smiling-indian-man-260nw-2558930119.jpg",
+                      "size": 16656
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_100_studio-shot-young-handsome-indian-man-doctor-against-gray_251136-12627.jpg",
+                      "size": 27414
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_101_young-indian-man-doctor-against-gray-wall_251136-6352.jpg",
+                      "size": 29933
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_102_portrait-of-happy-friendly-male-indian-latin-doctor-medical-worker-wearing-white-coat-with-stethoscope-around-neck-standing-in-mode.jpg",
+                      "size": 9756
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_103_360_F_300220248_VKEd3QKx31kzqHcwZfnGmWKZLYTjf8R0.jpg",
+                      "size": 21679
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_104_young-indian-doctor-man-wearing-260nw-1571914483.jpg",
+                      "size": 19896
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_106_young-doctor-getting-ready-work_23-2149393691.jpg",
+                      "size": 43808
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_107_smiling-indian-male-doctor-pediatric-260nw-2154207585.jpg",
+                      "size": 17967
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_110_360_F_269989951_9Gf7PWaRtrpm2EochO3D5WVn22sFZbNZ.jpg",
+                      "size": 21368
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_111_e42b6cd5-f70b-4faf-9bf9-734a6bbec8e1.png",
+                      "size": 1752125
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_112_portrait-male-doctor-wearing-eyeglasses-260nw-2297365631.jpg",
+                      "size": 27260
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_113_portrait-of-a-asian-indian-male-medical-doctor-in-uniform-photo.jpg",
+                      "size": 34600
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_114_ai-generated-8578389_960_720.png",
+                      "size": 868647
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_117_medical-doctor-posing-darkness_23-2147650221.jpg",
+                      "size": 45275
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_118_7452b9d2-c6b0-49bc-a8e1-3cc2d1a7cd3d.png",
+                      "size": 2102245
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_119_360_F_190013243_Kc276iuDgu0CuUwIY2JbO85DZM5yfZnp.jpg",
+                      "size": 33666
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_120_ai-generated-9019727_1280.png",
+                      "size": 2983149
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_124_ai-generated-young-handsome-doctor-with-stethoscope-isolated-free-photo.jpg",
+                      "size": 260901
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_125_4c1c9edd3857a345d9c4868d7f1ce83d.jpg",
+                      "size": 45701
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_126_asian-model-indian-men-model-harsh-puranam-as-doctor-professional-doctor-attire-poses_788415-8754.jpg",
+                      "size": 26257
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_128_pngtree-ai-generated-young-handsome-doctor-with-stethoscope-art-png-image_15357483.png",
+                      "size": 4466677
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_129_handsome-indianasian-senior-doctor-physician-260nw-1137054731.jpg",
+                      "size": 14036
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_131_360_F_594467718_8VcaoxOOfEimkY0BDrF7jZLwp0HmdVZH.jpg",
+                      "size": 31979
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_138_portrait-happy-friendly-male-indian-260nw-2033522228.jpg",
+                      "size": 23364
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_139_portrait-indian-male-doctor-with-stethoscope-hospital-corridor_979520-64773.jpg",
+                      "size": 66708
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_140_360_F_453912087_7Ktt8j0ZrJvFTCjjGBxPOlIhE5c2Q8YD.jpg",
+                      "size": 30590
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_141_portrait-of-a-handsome-male-doctor-on-dark-background-healthcare-and-medicine-ai-generated-photo.jpg",
+                      "size": 346778
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_142_360_F_257486764_GnnrHRNIBV93mAwR0aiNkS0x5UjDfIcl.jpg",
+                      "size": 17335
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_144_young-male-doctor_862994-525150.jpg",
+                      "size": 53562
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_145_1000_F_567936255_0ejH1j0ZYRH9EUhs5TmBNQURTTPo0QG4.jpg",
+                      "size": 119730
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_147_close-up-portrait-of-a-young-indian-male-doctor-standing-outside-a-clinical-center-in-a-white-coat-and-smiling-at-the-camera-photo.jpg",
+                      "size": 378418
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_148_portrait-serious-pensive-bearded-professional-260nw-2558930189.jpg",
+                      "size": 20239
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_149_360_F_600665935_ITJzjYWixSVVquI1TNsmoGEkdytYVvhQ.jpg",
+                      "size": 24526
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_14_default.jpg",
+                      "size": 10508
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_151_asian-indian-male-medical-doctor-portrait-smiling-standing-inside-hospital-holding-file-folder-39231981.jpg",
+                      "size": 35897
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_151_c6f9d38e84cf7ae7889d9fea70ee1e65.jpg",
+                      "size": 80876
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_155_portrait-indian-young-male-medical-260nw-81159103.jpg",
+                      "size": 14936
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_156_portrait-happy-successful-hindu-doctor-young-medical-practitioner-smiling-looking_321831-17342.jpg",
+                      "size": 37579
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_157_indian-doctor-28013102.jpg",
+                      "size": 75166
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_16_default.jpg",
+                      "size": 7107
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_18_default.jpg",
+                      "size": 8636
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_21_default.jpg",
+                      "size": 7563
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_23_default.jpg",
+                      "size": 9398
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_26_default.jpg",
+                      "size": 9877
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_3_default.jpg",
+                      "size": 10713
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_59_indian-doctor-smiling-face_1197144-1038.jpg",
+                      "size": 68887
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_5_default.jpg",
+                      "size": 7563
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_60_a-mature-indian-male-doctor-on-a-white-background-ai-generated-photo.jpg",
+                      "size": 264405
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_61_young-indian-male-doctor_437792-301.jpg",
+                      "size": 72535
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_62_young-male-indian-doctor-in-a-white-coat-generative-ai-photo.jpg",
+                      "size": 419612
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_63_confident-friendly-indian-male-doctor-600w-2603862439.jpg",
+                      "size": 56519
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_65_handsome-indian-doctor-care-generate-ai-photo.jpg",
+                      "size": 347471
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_66_360_F_707893394_5DEhlBjWOmse1nyu0rC9T7ZRvsAFDkYC.jpg",
+                      "size": 17458
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_66_young-indian-male-doctor-with-little-smile_973056-9.jpg",
+                      "size": 40134
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_67_handsome-indian-doctor-generate-ai-photo.jpg",
+                      "size": 361823
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_68_smiling-middleaged-indian-doctor-standing-medical-uniform-against-gray-wallcreated-with-generative-ai-technology_132358-7688.jpg",
+                      "size": 26808
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_69_45years-old-indian-doctor-speaking-mobile-phone-with-someone-pleasant-look-ultra-realistic-ultra-wide-shot-style-raw-stylize-250-job.jpg",
+                      "size": 78923
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_70_professional-indian-male-doctor-isolated-white-background_878783-9865.jpg",
+                      "size": 43682
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_72_360_F_707893394_5DEhlBjWOmse1nyu0rC9T7ZRvsAFDkYC.jpg",
+                      "size": 17458
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_73_smiling-bearded-male-indian-doctor-600nw-2036186171.jpg",
+                      "size": 44765
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_75_ai-generated-8965801_1280.png",
+                      "size": 1396094
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_76_360_F_602255772_9u1hkJnD9tAyqnrL89XYtbM9RykuDxnf.jpg",
+                      "size": 28890
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_77_indian-male-doctor-consulting-senior-old-patient-healthcare-generative-ai_896194-4019.jpg",
+                      "size": 48435
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_79_india-male-doctor-hospital-office_1028264-9361.jpg",
+                      "size": 34221
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_7_default.jpg",
+                      "size": 12386
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_81_360_F_681624470_Bove01iM9IM8fxlgEOGdnntS3zBKjsxK.jpg",
+                      "size": 18933
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_81_young-handsome-indian-man-doctor_251136-50316.jpg",
+                      "size": 25041
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_82_young-indian-male-doctor-with-okay-sign-in-white-uniform-with-collegues-WJA222.jpg",
+                      "size": 115359
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_83_portrait-of-happy-friendly-male-indian-latin-doctor-medical-worker-wearing-white-coat-with-stethoscope-around-neck-standing-in-moder.jpg",
+                      "size": 28445
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_83_young-indian-male-doctor-surgeon-stethoscope-gray-background-handsome-young-indian-male-doctor-surgeon-198446348.jpg",
+                      "size": 30045
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_85_indian-doctor-man-happy-background-clothing-medical_53876-528275.jpg",
+                      "size": 39052
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_87_c-1000-designbundle-indian-handsome-doctor-07-10-e459e24928be9e2a86b334f955ea40728084dd786dbf1ba8277c47ea31a9ed58.jpg",
+                      "size": 186472
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_8_default.jpg",
+                      "size": 12019
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_90_ai-generated-8655320_640.png",
+                      "size": 689143
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_91_happy-young-cheerful-bearded-doctor-260nw-2291471151.jpg",
+                      "size": 15529
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_93_50159ca5d36fc51d920209e41a414d0f.jpg",
+                      "size": 27722
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_94_ai-generated-8109581_1280.jpg",
+                      "size": 173701
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_95_360_F_636814944_b9kQP3PKOE7VHEgc8ElpreRbPhgUAqNs.jpg",
+                      "size": 31289
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_96_confident-male-doctor-with-stethoscope-standing-in-a-clinic-with-arms-crossed-photo.jpg",
+                      "size": 119757
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_97_b8d07f10-c420-4c36-9fad-7a33ed05287e.png",
+                      "size": 1637150
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_99_ai-generated-9019520_640.png",
+                      "size": 431794
+                    },
+                    {
+                      "type": "file",
+                      "name": "imgi_9_default.jpg",
+                      "size": 10145
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "directory",
+              "name": "components",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "HoverNavBar.jsx",
+                  "size": 3335
+                },
+                {
+                  "type": "directory",
+                  "name": "layout",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "AuthLayout.jsx",
+                      "size": 558
+                    },
+                    {
+                      "type": "file",
+                      "name": "MainLayout.jsx",
+                      "size": 11253
+                    },
+                    {
+                      "type": "file",
+                      "name": "ModernAuthLayout.jsx",
+                      "size": 3493
+                    }
+                  ]
+                },
+                {
+                  "type": "file",
+                  "name": "NotificationBell.jsx",
+                  "size": 7672
+                },
+                {
+                  "type": "file",
+                  "name": "ProfileButton.css",
+                  "size": 3052
+                },
+                {
+                  "type": "file",
+                  "name": "ProfileButton.jsx",
+                  "size": 2790
+                },
+                {
+                  "type": "directory",
+                  "name": "routing",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "PrivateRoute.jsx",
+                      "size": 543
+                    },
+                    {
+                      "type": "file",
+                      "name": "PublicRoute.jsx",
+                      "size": 437
+                    }
+                  ]
+                },
+                {
+                  "type": "file",
+                  "name": "ThemeToggle.jsx",
+                  "size": 1401
+                },
+                {
+                  "type": "directory",
+                  "name": "ui",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "AppSelect.jsx",
+                      "size": 14873
+                    },
+                    {
+                      "type": "file",
+                      "name": "Avatar.jsx",
+                      "size": 2993
+                    },
+                    {
+                      "type": "file",
+                      "name": "Calendar.jsx",
+                      "size": 7372
+                    },
+                    {
+                      "type": "file",
+                      "name": "DoctorProfileModal.jsx",
+                      "size": 3865
+                    },
+                    {
+                      "type": "file",
+                      "name": "FullScreenLoader.jsx",
+                      "size": 668
+                    },
+                    {
+                      "type": "file",
+                      "name": "index.js",
+                      "size": 285
+                    },
+                    {
+                      "type": "file",
+                      "name": "ModernTable.jsx",
+                      "size": 13532
+                    },
+                    {
+                      "type": "file",
+                      "name": "PrescriptionDetailModal.jsx",
+                      "size": 4371
+                    },
+                    {
+                      "type": "file",
+                      "name": "SkeletonLoader.jsx",
+                      "size": 11542
+                    }
+                  ]
+                },
+                {
+                  "type": "file",
+                  "name": "UnifiedNavigation.jsx",
+                  "size": 1905
+                },
+                {
+                  "type": "file",
+                  "name": "VideoBackground.jsx",
+                  "size": 319
+                }
+              ]
+            },
+            {
+              "type": "directory",
+              "name": "constants",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "index.js",
+                  "size": 1585
+                }
+              ]
+            },
+            {
+              "type": "directory",
+              "name": "contexts",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "AuthContext.jsx",
+                  "size": 1885
+                },
+                {
+                  "type": "file",
+                  "name": "NotificationContext.jsx",
+                  "size": 6914
+                },
+                {
+                  "type": "file",
+                  "name": "SocketContext.jsx",
+                  "size": 1917
+                },
+                {
+                  "type": "file",
+                  "name": "ThemeContext.jsx",
+                  "size": 1383
+                }
+              ]
+            },
+            {
+              "type": "directory",
+              "name": "hooks",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "useLoading.js",
+                  "size": 3843
+                }
+              ]
+            },
+            {
+              "type": "file",
+              "name": "index.css",
+              "size": 2045
+            },
+            {
+              "type": "directory",
+              "name": "lib",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "utils.js",
+                  "size": 141
+                }
+              ]
+            },
+            {
+              "type": "file",
+              "name": "main.jsx",
+              "size": 8024
+            },
+            {
+              "type": "file",
+              "name": "main.jsx.bak_20250925231036",
+              "size": 3622
+            },
+            {
+              "type": "directory",
+              "name": "pages",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "AboutUs.jsx",
+                  "size": 8175
+                },
+                {
+                  "type": "directory",
+                  "name": "admin",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "Dashboard.jsx",
+                      "size": 9703
+                    },
+                    {
+                      "type": "file",
+                      "name": "KycRequests.jsx",
+                      "size": 17671
+                    },
+                    {
+                      "type": "file",
+                      "name": "ManageDoctors.jsx",
+                      "size": 12995
+                    },
+                    {
+                      "type": "file",
+                      "name": "ManageHospitals.jsx",
+                      "size": 14032
+                    },
+                    {
+                      "type": "file",
+                      "name": "ManageInventory.jsx",
+                      "size": 19325
+                    },
+                    {
+                      "type": "file",
+                      "name": "ManageSpecializations.jsx",
+                      "size": 17435
+                    },
+                    {
+                      "type": "file",
+                      "name": "SymptomHistory.jsx",
+                      "size": 11529
+                    }
+                  ]
+                },
+                {
+                  "type": "directory",
+                  "name": "auth",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "Login.jsx",
+                      "size": 4725
+                    },
+                    {
+                      "type": "file",
+                      "name": "Register.jsx",
+                      "size": 8133
+                    }
+                  ]
+                },
+                {
+                  "type": "file",
+                  "name": "Contact.jsx",
+                  "size": 9933
+                },
+                {
+                  "type": "directory",
+                  "name": "demo",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "DropdownDemo.jsx",
+                      "size": 8681
+                    }
+                  ]
+                },
+                {
+                  "type": "directory",
+                  "name": "doctor",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "Appointments.jsx",
+                      "size": 28311
+                    },
+                    {
+                      "type": "file",
+                      "name": "Availability.jsx",
+                      "size": 10598
+                    },
+                    {
+                      "type": "file",
+                      "name": "CreatePrescription.jsx",
+                      "size": 9711
+                    },
+                    {
+                      "type": "file",
+                      "name": "CreatePrescriptionNew.jsx",
+                      "size": 25248
+                    },
+                    {
+                      "type": "file",
+                      "name": "Dashboard.jsx",
+                      "size": 12952
+                    },
+                    {
+                      "type": "file",
+                      "name": "EditMedicalHistory.jsx",
+                      "size": 28336
+                    },
+                    {
+                      "type": "file",
+                      "name": "FollowUp.jsx",
+                      "size": 4924
+                    },
+                    {
+                      "type": "file",
+                      "name": "GenerateBill.jsx",
+                      "size": 9358
+                    },
+                    {
+                      "type": "file",
+                      "name": "Inventory.jsx",
+                      "size": 19897
+                    },
+                    {
+                      "type": "file",
+                      "name": "Kyc.jsx",
+                      "size": 4035
+                    },
+                    {
+                      "type": "file",
+                      "name": "PatientFile.jsx",
+                      "size": 32420
+                    },
+                    {
+                      "type": "file",
+                      "name": "Settings.jsx",
+                      "size": 13002
+                    },
+                    {
+                      "type": "file",
+                      "name": "ViewBill.jsx",
+                      "size": 9175
+                    },
+                    {
+                      "type": "file",
+                      "name": "ViewPrescription.jsx",
+                      "size": 8733
+                    }
+                  ]
+                },
+                {
+                  "type": "file",
+                  "name": "Home.jsx",
+                  "size": 1735
+                },
+                {
+                  "type": "file",
+                  "name": "PageNotFound.jsx",
+                  "size": 482
+                },
+                {
+                  "type": "directory",
+                  "name": "patient",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "Appointments.jsx",
+                      "size": 27038
+                    },
+                    {
+                      "type": "file",
+                      "name": "Bills.jsx",
+                      "size": 19753
+                    },
+                    {
+                      "type": "file",
+                      "name": "BookAppointment.jsx",
+                      "size": 22884
+                    },
+                    {
+                      "type": "file",
+                      "name": "Dashboard.jsx",
+                      "size": 12205
+                    },
+                    {
+                      "type": "file",
+                      "name": "MedicalHistory.jsx",
+                      "size": 4565
+                    },
+                    {
+                      "type": "file",
+                      "name": "MedicalHistoryView.jsx",
+                      "size": 14224
+                    },
+                    {
+                      "type": "file",
+                      "name": "PaymentCancelled.jsx",
+                      "size": 2954
+                    },
+                    {
+                      "type": "file",
+                      "name": "PaymentSuccess.jsx",
+                      "size": 6759
+                    },
+                    {
+                      "type": "file",
+                      "name": "Prescriptions.jsx",
+                      "size": 8840
+                    },
+                    {
+                      "type": "file",
+                      "name": "RefillPrescription.jsx",
+                      "size": 6151
+                    },
+                    {
+                      "type": "file",
+                      "name": "SymptomChecker.jsx",
+                      "size": 13376
+                    },
+                    {
+                      "type": "file",
+                      "name": "ViewPrescription.jsx",
+                      "size": 6609
+                    }
+                  ]
+                },
+                {
+                  "type": "directory",
+                  "name": "pharmacist",
+                  "children": [
+                    {
+                      "type": "file",
+                      "name": "Dashboard.jsx",
+                      "size": 5227
+                    }
+                  ]
+                },
+                {
+                  "type": "file",
+                  "name": "Profile.jsx",
+                  "size": 21388
+                }
+              ]
+            },
+            {
+              "type": "directory",
+              "name": "services",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "api.js",
+                  "size": 319
+                }
+              ]
+            },
+            {
+              "type": "directory",
+              "name": "utils",
+              "children": [
+                {
+                  "type": "file",
+                  "name": "cn.js",
+                  "size": 284
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "name": "tailwind.config.js",
+          "size": 1991
+        },
+        {
+          "type": "file",
+          "name": "tsconfig.json",
+          "size": 668
+        },
+        {
+          "type": "file",
+          "name": "tsconfig.node.json",
+          "size": 223
+        },
+        {
+          "type": "file",
+          "name": "vite.config.js",
+          "size": 223
+        }
+      ]
+    },
+    {
+      "type": "directory",
+      "name": "node_modules",
+      "children": []
+    },
+    {
+      "type": "file",
+      "name": "package-lock.json",
+      "size": 95
+    },
+    {
+      "type": "file",
+      "name": "package.json",
+      "size": 4
+    },
+    {
+      "type": "file",
+      "name": "TEST_IMAGES.html",
+      "size": 3358
+    }
+  ]
+}

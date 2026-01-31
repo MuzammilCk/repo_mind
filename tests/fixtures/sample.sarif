@@ -1,0 +1,98 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeQL",
+          "version": "2.11.0",
+          "rules": [
+            {
+              "id": "py/sql-injection",
+              "name": "SQL Injection",
+              "shortDescription": {
+                "text": "SQL injection vulnerability"
+              },
+              "help": {
+                "text": "Use parameterized queries instead of string concatenation"
+              }
+            },
+            {
+              "id": "py/path-injection",
+              "name": "Path Injection",
+              "shortDescription": {
+                "text": "Uncontrolled data used in path expression"
+              },
+              "help": {
+                "text": "Validate and sanitize file paths from user input"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "py/sql-injection",
+          "level": "error",
+          "message": {
+            "text": "Potential SQL injection vulnerability detected"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/database/queries.py"
+                },
+                "region": {
+                  "startLine": 125,
+                  "endLine": 127
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "py/path-injection",
+          "level": "warning",
+          "message": {
+            "text": "User-controlled data used in file path"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/utils/file_handler.py"
+                },
+                "region": {
+                  "startLine": 42,
+                  "endLine": 42
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "py/unused-import",
+          "level": "note",
+          "message": {
+            "text": "Unused import statement"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main.py"
+                },
+                "region": {
+                  "startLine": 5,
+                  "endLine": 5
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
