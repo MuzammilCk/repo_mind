@@ -70,8 +70,12 @@ class GeminiService:
             print(f"⚠️  {error_msg}")
             self.gemini_available = False
             
+            self.gemini_available = False
+            
         except Exception as e:
             # API call failed (invalid key, network, etc.)
+            import traceback
+            traceback.print_exc()
             error_msg = f"Gemini API verification failed: {str(e)}"
             print(f"⚠️  {error_msg}")
             self.gemini_available = False
