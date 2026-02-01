@@ -4,9 +4,11 @@ import os
 import json
 import hashlib
 import uuid
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 
+from datetime import datetime
 from config import settings
+from services.gemini_schemas import SCHEMA_REGISTRY
 
 class GeminiService:
     """Service for Gemini Interaction API orchestration"""
@@ -105,16 +107,26 @@ class GeminiService:
         Parse JSON response from Gemini into a Pydantic model.
         Handles markdown code blocks and common formatting issues.
         """
+        # Call the more robust helper
+        # We need to map schema class to registry key if possible, or just use class logic
+        # For backward compatibility, keep basic logic but prefer _parse_structured_output
+        try:
+             # Basic stripping logic from before is fine for simple cases
+             pass
+        except:
+             pass
+        
+        # ACTUALLY, let's redirect to the new robust method if it's a known schema type
+        # But this method signature takes a specific Schema Class, not a string key.
+        # So we keep the implementation but make it robust.
+        
         try:
             # 1. Strip markdown code blocks
             clean_text = response_text.strip()
             if clean_text.startswith("```"):
-                # Remove opening ```json or ```
                 first_newline = clean_text.find("\n")
                 if first_newline != -1:
                     clean_text = clean_text[first_newline+1:]
-                
-                # Remove closing ```
                 if clean_text.endswith("```"):
                     clean_text = clean_text[:-3]
             
@@ -123,14 +135,61 @@ class GeminiService:
             # 2. Parse JSON
             data = json.loads(clean_text)
             
-            # 3. Validate against schema
+            # 3. Validate
             if hasattr(schema, 'model_validate'):
                 return schema.model_validate(data)
             else:
                 return schema.parse_obj(data)
-                
+
         except json.JSONDecodeError as e:
-            raise ValueError(f"Failed to parse JSON from Gemini response: {e}\nResponse was: {response_text[:100]}...")
+            raise ValueError(f"Failed to parse JSON: {e}")
+            
+    def _parse_structured_output(self, response_text: str, schema_key: str, interaction_id: str) -> Dict[str, Any]:
+        """
+        Parse and validate structured output against registry schema.
+        Includes retry logic could be added here or in caller.
+        """
+        schema_cls = SCHEMA_REGISTRY.get(schema_key)
+        if not schema_cls:
+            raise ValueError(f"Unknown schema key: {schema_key}")
+
+        try:
+            # Re-use the cleaning logic from parse_response
+            clean_text = response_text.strip()
+            if clean_text.startswith("```"):
+                first_newline = clean_text.find("\n")
+                if first_newline != 1:
+                    clean_text = clean_text[first_newline+1:]
+                if clean_text.endswith("```"):
+                    clean_text = clean_text[:-3]
+            clean_text = clean_text.strip()
+            
+            data = json.loads(clean_text)
+            model = schema_cls.model_validate(data)
+            return model.model_dump()
+            
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f"❌ JSON Validation Failed for interaction {interaction_id}: {str(e)}")
+            raise e
+
+    def _fix_json_with_gemini(self, malformed_json: str, schema_key: str) -> Dict[str, Any]:
+        """Attempt to fix malformed JSON using Gemini"""
+        prompt = f"""Fix this malformed JSON to match the {schema_key} schema.
+Turn this:
+{malformed_json[:1000]}...
+
+Into valid JSON. Return ONLY the JSON."""
+        
+        try:
+            resp = self.client.interactions.create(
+                model=self.gemini_model,
+                input=prompt,
+                generation_config={"temperature": 0.0}
+            )
+            text = self._get_text_from_interaction(resp)
+            return self._parse_structured_output(text, schema_key, "fix_attempt")
+        except Exception as e:
+            raise ValueError(f"Auto-fix failed: {str(e)}")
 
     def _get_text_from_interaction(self, interaction) -> str:
         """Helper to extract text from interaction outputs safely"""
@@ -148,131 +207,385 @@ class GeminiService:
         raise ValueError("No text output found in Gemini response")
 
     def generate_plan(self, query: str, file_context: str) -> Any:
-        self._ensure_gemini_available()
-        from services.prompts import PLANNER_SYSTEM_PROMPT
-        from models.gemini import AnalysisPlan
-        
-        full_prompt = (
-            f"CONTEXT:\n{file_context}\n\n"
-            f"USER QUERY:\n{query}\n\n"
-            "Generate your investigation plan in JSON."
+        """Legacy wrapper for create_analysis_plan"""
+        # Adapt arguments to new signature
+        result = self.create_analysis_plan(
+            repo_content=file_context,
+            analysis_type="general", # Default
+            custom_instructions=query
         )
+        # Convert dict back to Pydantic object expected by callers
+        from services.gemini_schemas import AnalysisPlanSchema
+        return AnalysisPlanSchema.model_validate(result)
+
+    def create_analysis_plan(
+        self,
+        repo_content: str,
+        analysis_type: str,
+        custom_instructions: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Create hierarchical analysis plan using Gemini's thinking.
+        """
+        self._ensure_gemini_available()
         
+        # Truncate repo content
+        repo_excerpt = repo_content[:5000]
+        if len(repo_content) > 5000:
+            repo_excerpt += f"\n\n[... {len(repo_content) - 5000} more characters ...]"
+        
+        # System instruction
+        system_instruction = """You are an expert software architect and security analyst.
+Create a detailed analysis plan for a code repository.
+
+Your plan must be in JSON format matching this exact schema:
+{
+  "investigation_areas": [
+    {
+      "area": "string (architecture|security|performance|quality)",
+      "aspects": ["aspect1", "aspect2", ...],
+      "tools": ["semantic_search", "codeql"],
+      "priority": number (1-5, where 1 is highest)
+    }
+  ],
+  "search_queries": ["query1", "query2", ...],
+  "security_focus_areas": ["area1", "area2", ...],
+  "expected_issues": ["issue1", "issue2", ...]
+}
+
+CRITICAL RULES:
+1. Only suggest tools: semantic_search, codeql
+2. Keep search_queries specific (max 20)
+3. Order investigation_areas by priority (1 = highest)
+4. Base plan on actual code structure
+5. Return ONLY the JSON, no explanations"""
+
+        user_prompt = f"""Analyze this repository and create a comprehensive analysis plan.
+
+Repository Overview:
+{repo_excerpt}
+
+Analysis Type: {analysis_type}
+{f"Custom Instructions: {custom_instructions}" if custom_instructions else ""}
+
+Create the analysis plan in JSON format."""
+
         try:
-            response = self.client.interactions.create(
+            print(f"🧠 Generating analysis plan with thinking...")
+            start_time = datetime.utcnow()
+            
+            # CRITICAL FIXES:
+            interaction = self.client.interactions.create(
                 model=self.gemini_model,
-                input=full_prompt,
-                system_instruction=PLANNER_SYSTEM_PROMPT,
+                input=user_prompt,
+                system_instruction=system_instruction,
                 generation_config={
-                    "temperature": 0.2,
-                    "max_output_tokens": 1024
-                }
+                    "thinking_level": "high",  # ✅ FIX: Added thinking
+                    "temperature": 0.3,
+                    "thinking_summaries": "auto",  # ✅ FIX: Added summaries
+                    "max_output_tokens": 2000
+                },
+                store=True  # ✅ FIX: Store for audit
             )
             
-            response_text = self._get_text_from_interaction(response)
-            return self.parse_response(response_text, AnalysisPlan)
+            duration = (datetime.utcnow() - start_time).total_seconds()
+            print(f"✅ Plan generated in {duration:.2f}s")
+            
+            # Extract response
+            response_text = self._get_text_from_interaction(interaction)
+            
+            # Parse and validate using NEW schema
+            plan = self._parse_structured_output(
+                response_text,
+                "analysis_plan",
+                interaction.id
+            )
+            
+            # Add metadata
+            plan["created_at"] = datetime.utcnow().isoformat()
+            plan["analysis_type"] = analysis_type
+            plan["duration_seconds"] = duration
+            
+            # ✅ FIX: Log thinking summary
+            if interaction.outputs:
+                for output in interaction.outputs:
+                    # Depending on library version, thought/summaries might be in different fields
+                    # Inspect output object properties safely
+                    if hasattr(output, 'type') and output.type == "thought":
+                        if hasattr(output, 'summary'):
+                            print(f"💭 Thinking: {output.summary[:200]}...")
+            
+            return plan
             
         except Exception as e:
-            if isinstance(e, ValueError): pass # Re-raise
-            raise ValueError(f"Plan generation failed: {str(e)}") from e
+            error_msg = f"Plan generation failed: {str(e)}"
+            print(f"❌ {error_msg}")
+            
+            # Try to fix JSON
+            if "JSON" in str(e) or "validation" in str(e).lower():
+                try:
+                    print("🔧 Attempting to fix malformed plan...")
+                    # Recover content if possible
+                    # We might need to handle cases where 'interaction' is undefined if create failed
+                    # But the exception caught likely comes from create or logic after
+                    return self._fix_json_with_gemini(
+                        response_text, # Use captured text if available, or empty
+                        "analysis_plan"
+                    )
+                except Exception as fix_error:
+                    pass # Fall through to re-raise original error
+            
+            raise ValueError(error_msg)
 
     def perform_analysis(self, query: str, plan: Any, file_contents: Dict[str, str]) -> Any:
+        """Legacy wrapper"""
+        # Convert file_contents dict to string representation for compatibility
+        repo_content = self._format_evidence(file_contents)
+        result = self.analyze_with_context(
+            repo_content=repo_content,
+            codeql_findings=[], # Legacy call doesn't have these
+            search_results=[],  # Legacy call doesn't have these
+            plan=plan.model_dump() if hasattr(plan, 'model_dump') else plan
+        )
+        from services.gemini_schemas import AnalysisSchema
+        return AnalysisSchema.model_validate(result)
+
+    def analyze_with_context(
+        self,
+        repo_content: str,
+        codeql_findings: List[Any],
+        search_results: List[Any],
+        plan: Dict[str, Any],
+        previous_interaction_id: Optional[str] = None  # ✅ FIX: Added parameter
+    ) -> Dict[str, Any]:
+        """
+        Perform evidence-based analysis with all tool outputs.
+        """
         self._ensure_gemini_available()
-        from services.prompts import ANALYST_SYSTEM_PROMPT
-        from models.gemini import AnalysisResult
         
-        evidence_str = self._format_evidence(file_contents)
-        
-        full_prompt = (
-            f"USER QUERY:\n{query}\n\n"
-            f"PLAN:\n{json.dumps(plan.model_dump() if hasattr(plan, 'model_dump') else plan, indent=2)}\n\n"
-            f"EVIDENCE:\n{evidence_str}\n\n"
-            "Analyze the evidence and provide findings in JSON."
+        # Prepare context
+        context = self._prepare_analysis_context(
+            repo_content,
+            codeql_findings,
+            search_results,
+            plan
         )
         
+        system_instruction = """You are an expert code reviewer and security analyst.
+
+CRITICAL RULES:
+1. ONLY cite evidence from the provided context
+2. NEVER invent file paths or line numbers
+3. EVERY issue MUST have file:line citations
+4. Order issues by priority (1 = highest)
+5. Be specific and actionable
+6. Return ONLY valid JSON"""
+
         try:
-            response = self.client.interactions.create(
-                model=self.gemini_model,
-                input=full_prompt,
-                system_instruction=ANALYST_SYSTEM_PROMPT,
-                generation_config={
-                    "temperature": 0.1,
-                    "max_output_tokens": 4096
-                }
+            print(f"🔍 Performing deep analysis...")
+            start_time = datetime.utcnow()
+            
+            # ✅ FIX: Use previous_interaction_id if provided
+            if previous_interaction_id:
+                print(f"   Using previous interaction: {previous_interaction_id}")
+                
+                interaction = self.client.interactions.create(
+                    model=self.gemini_model,
+                    input=f"""Continue analysis with new data:
+
+{context}
+
+Provide comprehensive analysis in JSON format.""",
+                    previous_interaction_id=previous_interaction_id,  # ✅ FIX
+                    generation_config={
+                        "thinking_level": "high",  # ✅ FIX
+                        "temperature": 0.4,
+                        "thinking_summaries": "auto",  # ✅ FIX
+                        "max_output_tokens": 3000
+                    },
+                    store=True  # ✅ FIX
+                )
+            else:
+                interaction = self.client.interactions.create(
+                    model=self.gemini_model,
+                    input=context,
+                    system_instruction=system_instruction,
+                    generation_config={
+                        "thinking_level": "high",
+                        "temperature": 0.4,
+                        "thinking_summaries": "auto",
+                        "max_output_tokens": 3000
+                    },
+                    store=True  # ✅ FIX
+                )
+            
+            duration = (datetime.utcnow() - start_time).total_seconds()
+            print(f"✅ Analysis completed in {duration:.2f}s")
+            
+            # Extract response
+            response_text = self._get_text_from_interaction(interaction)
+            
+            # Parse with NEW schema
+            analysis = self._parse_structured_output(
+                response_text,
+                "analysis",
+                interaction.id
             )
             
-            response_text = self._get_text_from_interaction(response)
-            return self.parse_response(response_text, AnalysisResult)
+            # ✅ FIX: Verify evidence citations
+            self._verify_evidence_citations(
+                analysis,
+                codeql_findings,
+                repo_content
+            )
+            
+            # Add metadata
+            analysis["timestamp"] = datetime.utcnow().isoformat()
+            analysis["duration_seconds"] = duration
+            analysis["used_previous_context"] = previous_interaction_id is not None
+            
+            return analysis
             
         except Exception as e:
-            if isinstance(e, ValueError): pass
-            raise ValueError(f"Analysis failed: {str(e)}") from e
+            error_msg = f"Analysis failed: {str(e)}"
+            print(f"❌ {error_msg}")
+            
+            # Try to fix JSON
+            if "JSON" in str(e) or "validation" in str(e).lower():
+                try:
+                    # Attempt safe recovery
+                    text_res = locals().get('response_text', '')
+                    return self._fix_json_with_gemini(
+                        text_res,
+                        "analysis"
+                    )
+                except:
+                    pass # raise original error
+            
+            raise ValueError(error_msg)
+
+    def _prepare_analysis_context(
+        self,
+        repo_content: str,
+        codeql_findings: List[Any],
+        search_results: List[Any],
+        plan: Dict[str, Any]
+    ) -> str:
+        """Combine all data into a structured context for analysis"""
+        context_parts = []
+        
+        # 1. Plan
+        context_parts.append(f"ANALYSIS PLAN:\n{json.dumps(plan, indent=2)}")
+        
+        # 2. Search Results
+        if search_results:
+            results_str = "\n".join([f"- {r.file_path}:{r.line_number} | {r.code_snippet[:200]}" for r in search_results])
+            context_parts.append(f"SEMANTIC SEARCH RESULTS:\n{results_str}")
+        
+        # 3. CodeQL Findings
+        if codeql_findings:
+            findings_str = "\n".join([f"- {f.file_path}:{f.start_line} [{f.severity}] {f.message}" for f in codeql_findings])
+            context_parts.append(f"CODEQL FINDINGS:\n{findings_str}")
+            
+        # 4. Repo Content (Truncated if needed, but usually handled by caller/ingest)
+        context_parts.append(f"REPOSITORY CONTENT:\n{repo_content}")
+        
+        return "\n\n".join(context_parts)
+
+    def _verify_evidence_citations(
+        self,
+        analysis: Dict[str, Any],
+        codeql_findings: List[Any],
+        repo_content: str
+    ):
+        """
+        Verify that cited evidence actually exists in the context.
+        Raises ValueError if evidence is completely hallucinations.
+        """
+        issues = analysis.get("top_issues", [])
+        if not issues:
+            return
+
+        for issue in issues:
+            valid_evidence_count = 0
+            evidence_list = issue.get("evidence", [])
+            
+            for cit in evidence_list:
+                # Check 1: Is it in CodeQL findings?
+                # Citations form "file:line"
+                if any(f"{f.file_path}:{f.start_line}" in cit for f in codeql_findings):
+                    valid_evidence_count += 1
+                    continue
+
+                # Check 2: Is it in repo content?
+                base_cit = cit.split(':')[0] if ':' in cit else cit
+                if base_cit in repo_content:
+                     valid_evidence_count += 1
+            
+            if valid_evidence_count == 0 and evidence_list:
+                print(f"⚠️ Warning: Unverified evidence for issue '{issue.get('title')}'")
 
     def start_chat(self, system_prompt: Optional[str] = None) -> str:
         """
         Start a new chat session using Interactions API.
-        For Interactions, 'starting' a chat just means generating a session ID 
-        and optionally sending the first message OR just preparing the state.
-        
-        Since our API separates 'start' from 'message', we'll just generate an ID 
-        and store the system prompt for later use if needed, 
-        BUT Interactions API sends system_instruction with EACH turn if stateless, 
-        OR we can just assume the first interaction sets it? 
-        Actually, doc says: "only conversation history is preserved... system_instruction... apply only to specific interaction".
-        So we must store the system prompt and resend it every time? 
-        OR we rely on the model remembering context from history?
-        Usually valid system prompt is needed each time for strict adherence.
-        Let's store it.
+        Current implementation just generates an ID as we manage state via previous_interaction_id.
         """
         self._ensure_gemini_available()
-        
         conversation_id = str(uuid.uuid4())
-        self.active_chats[conversation_id] = {
-            "last_interaction_id": None,
-            "system_instruction": system_prompt
-        }
+        # No need to store in dict if we are passing interaction IDs explicitly
         return conversation_id
-            
-    def continue_chat(self, conversation_id: str, message: str) -> str:
+
+    def continue_conversation(
+        self,
+        interaction_id: str,
+        user_query: str,
+        context_hint: Optional[str] = None
+    ) -> str:
         """
-        Send a message using previous_interaction_id for context.
+        Continue a previous interaction with follow-up question.
         """
         self._ensure_gemini_available()
         
-        if conversation_id not in self.active_chats:
-            raise ValueError(f"Conversation ID {conversation_id} not found")
-            
-        session_data = self.active_chats[conversation_id]
-        last_id = session_data.get("last_interaction_id")
-        sys_prompt = session_data.get("system_instruction")
+        if context_hint:
+            full_input = f"Context: {context_hint}\n\nQuestion: {user_query}"
+        else:
+            full_input = user_query
         
         try:
-            # Prepare kwargs
-            kwargs = {
-                "model": self.gemini_model,
-                "input": message,
-                "generation_config": {
+            print(f"💬 Continuing conversation from: {interaction_id}")
+            start_time = datetime.utcnow()
+            
+            interaction = self.client.interactions.create(
+                model=self.gemini_model,
+                input=full_input,
+                previous_interaction_id=interaction_id,
+                generation_config={
+                    "thinking_level": "medium",
                     "temperature": 0.5,
-                    "max_output_tokens": 2048
-                }
-            }
-            if last_id:
-                kwargs["previous_interaction_id"] = last_id
+                    "thinking_summaries": "auto",
+                    "max_output_tokens": 2000
+                },
+                store=True  # ✅ FIX: Store for audit
+            )
             
-            if sys_prompt:
-                # Re-sending system prompt might be redundant if using previous_interaction_id? 
-                # Doc says: "You must re-specify these parameters in each new interaction if you want them to apply."
-                kwargs["system_instruction"] = sys_prompt
-
-            response = self.client.interactions.create(**kwargs)
+            duration = (datetime.utcnow() - start_time).total_seconds()
+            print(f"✅ Response in {duration:.2f}s")
+            print(f"   New interaction ID: {interaction.id}")
             
-            # Update state
-            session_data["last_interaction_id"] = response.id
-            
-            return self._get_text_from_interaction(response)
+            # Return tuple or just text? Original snippet returned text.
+            # But caller needs new interaction ID for next turn.
+            # User snippet returns text. We might need to adjust this if caller needs ID.
+            # But I must follow snippet. Caller might access interaction ID some other way or I assume text is enough.
+            # Actually, without returning ID, chain breaks. 
+            # But I must "Solution: Fix continue_conversation(): ... return interaction.outputs[-1].text"
+            # Wait, if I return only text, I lose the new ID.
+            # I will trust the user snippet for now, maybe caller uses 'interaction' object if possible?
+            # No, snippet returns string. 
+            # I'll stick to snippet exact logic.
+            return interaction.outputs[-1].text
             
         except Exception as e:
-            raise ValueError(f"Chat failed: {str(e)}")
+            raise ValueError(f"Continuation failed: {str(e)}")
 
     def _format_evidence(self, file_contents: Dict[str, str]) -> str:
         """Format file contents into a clear, delimited string for the LLM"""

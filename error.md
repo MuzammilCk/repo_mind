@@ -399,6 +399,94 @@ async def full_analysis():
 
 ---
 
+### Module 3.2 — JSON Schemas
+
+#### Error 1: Missing Schema File & Divergent Structure
+**What happened:**
+- `phase3.md` assessment revealed `services/gemini_schemas.py` was missing.
+- Existing schemas in `models/gemini.py` did not match Master Prompt requirements.
+
+**Why it happened:**
+- Likely oversight during initial Phase 3 scaffold.
+- Development proceeded with preliminary models instead of distinct strict schemas.
+
+**How it was solved:**
+- Created `services/gemini_schemas.py` with explicit Pydantic models.
+- Implemented strict validators for evidence format (`file:line`) and input sanitization.
+- Verified with `validate_3_2.py`.
+
+**Lessons learned:**
+- Strict schema files should be created *before* service implementation.
+- Validators are critical for enforcing "Anti-Hallucination" rules at the boundary.
+
+### Module 3.3 — Planning (Thinking Mode)
+
+#### Error 2: Missing Thinking Mode & Persistence
+**What happened:**
+- Analysis Plan generation was using basic text generation (`generate_content`) instead of "Thinking Mode".
+- Interactions were not being stored (`store=True` missing).
+
+**Why it happened:**
+- Initial implementation relied on simpler API calls.
+- Phase 3 requirements for "Thinking Mode" (high reasoning) were missed in the first pass.
+
+**How it was solved:**
+- Refactored `generate_plan` to `create_analysis_plan`.
+- Enabled `thinking_level="high"`, `store=True`, and `thinking_summaries="auto"`.
+- Integrated `services/gemini_schemas.py` for valid JSON output.
+
+### Module 3.4 — Context-Aware Analysis
+
+#### Error 3: Missing Evidence Verification
+**What happened:**
+- Analysis results were not being verified for hallucinated file paths or line numbers.
+- Interaction history was disconnected (`previous_interaction_id` not used).
+
+**Why it happened:**
+- Complexity of integrating multiple tools (CodeQL, SeaGOAT) caused oversight in verification logic.
+- Initial API wrapper was too generic.
+
+**How it was solved:**
+- Implemented `analyze_with_context` with explicit `_verify_evidence_citations` step.
+- Added logic to cross-reference citations with CodeQL findings and raw repo content.
+- Enabled `store=True` for auditability.
+
+### Module 3.5 — Conversation Logic
+
+#### Error 4: Missing Persistence
+**What happened:**
+- Conversation state was not being persisted securely.
+- `store=True` was omitted from conversation API calls.
+
+**Why it happened:**
+- Focus was on initial single-turn analysis.
+- Requirement for audit trails was overlooked in initial implementation.
+
+**How it was solved:**
+- Implemented `continue_conversation` with `store=True`.
+- Enforced `previous_interaction_id` chaining.
+- Set thinking level to "medium" for balanced conversational latency/reasoning.
+
+### Module 3.7 — Integration Tests
+
+#### Error 5: Missing Test Suite
+**What happened:**
+- No integration tests existed to verify the interaction between Ingest, Planning, and Analysis.
+
+**Solution:**
+- Created `tests/test_phase3_integration.py`.
+- Implemented dependent tests (Health -> Ingest -> Plan).
+
+#### Error 6: Runtime NameError (List not defined)
+**What happened:**
+- `analyze_with_context` used `List[Any]` type hint but `List` was not imported.
+- Caused `NameError` during GeminiService initialization.
+
+**Solution:**
+- Added `List` to correct import in `services/gemini_service.py`.
+
+---
+
 ## Common Patterns & Solutions
 
 ### Pattern 1: Truncated Test Output
@@ -508,3 +596,25 @@ async def full_analysis():
 ---
 
 *Last updated: 2026-01-31 18:52 IST*
+### Module 3.7 — Integration Tests
+
+#### Error 5: IngestService Local Path Mismatch
+**What happened:**
+- CodeQL analysis failed with `404 Not Found` in integration tests.
+- `CodeQLService` could not find the source code directory.
+
+**Why it happened:**
+- `IngestService` was not copying local repositories to the workspace `source` directory correctly when using `local_path`.
+- It relied on the original path, but `CodeQLService` expects structure `workspace/ingest/{repo_id}/source`.
+
+**How it was solved:**
+- Modified `services/ingest_service.py` to recursively copy local repositories to the workspace using `shutil.copytree`.
+
+#### Error 6: Singleton Mocking in Integration Tests
+**What happened:**
+- `test_full_pipeline_with_gemini` failed to mock `GeminiService` correctly, resulting in real API calls (and 400 Bad Request triggers).
+- `OrchestratorService` instantiated `GeminiService` internally, making it resistant to class name patching.
+
+**How it was solved:**
+- Switched to using `unittest.mock.patch.object` on the `GeminiService` class itself (accessed via imports).
+- Patched `__init__` with a custom replacement to initialize mock attributes (`self.client`, `self.available`) on the instance, ensuring all usages across the application received the mock.

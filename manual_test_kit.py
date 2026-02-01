@@ -151,18 +151,23 @@ def main():
         print("\n⚠️  Server not verified. Make sure 'uvicorn main:app' is running!")
         return
 
+    current_repo_id = None
+
     while True:
-        print("\nOptions:")
+        print(f"\nCurrent Repo ID: {current_repo_id}")
+        print("Options:")
         print("1. Ingest Repository")
-        print("2. Run Deep Analysis")
+        print("2. Run Deep Analysis (Plan -> Execute)")
         print("3. Exit")
         
         choice = input("\nSelect option (1-3): ").strip()
         
         if choice == "1":
-            ingest_repo()
+            new_id = ingest_repo()
+            if new_id:
+                current_repo_id = new_id
         elif choice == "2":
-            run_deep_analysis(None)
+            run_deep_analysis(current_repo_id)
         elif choice == "3":
             print("Bye!")
             break

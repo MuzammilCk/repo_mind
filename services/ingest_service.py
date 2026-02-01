@@ -4,6 +4,7 @@ Implements safe subprocess calls, encoding fallback, and size limits
 """
 
 import os
+import shutil
 import subprocess
 import json
 import uuid
@@ -62,9 +63,20 @@ class IngestService:
                 repo_dir / "source"
             )
         elif request.source.local_path:
-            local_repo_path = Path(request.source.local_path)
-            if not local_repo_path.exists():
+            source_path = Path(request.source.local_path)
+            if not source_path.exists():
                 raise ValueError(f"Local path does not exist: {request.source.local_path}")
+            
+            # Copy to workspace to ensure CodeQL can find it
+            target_source = repo_dir / "source"
+            if source_path.is_file():
+                # Handle single file case if needed, but usually repo is dir
+                target_source.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source_path, target_source)
+            else:
+                shutil.copytree(source_path, target_source, dirs_exist_ok=True)
+            
+            local_repo_path = target_source
         else:
             raise ValueError("Either url or local_path must be provided")
         
