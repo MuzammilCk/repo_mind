@@ -300,18 +300,19 @@ class OrchestratorService:
         elif action_type == "gemini_think":
             logger.info(f"Gemini Thinking: {params['query']}")
             
-            # Application of "Context-Aware" logic:
-            # 1. Get file structure from IngestService
-            repo_path = self.ingest_service.get_repo_path(params['repo_id'])
-            file_structure = self.ingest_service.get_file_structure(params['repo_id'])
+            # Get repository content for context
+            try:
+                repo_content = self.ingest_service.get_repo_content(params['repo_id'])
+                # Use first 5000 chars as context to avoid token limits
+                context_str = repo_content[:5000] if repo_content else "Repository content not available"
+            except FileNotFoundError:
+                logger.warning(f"Repository {params['repo_id']} not found, using empty context")
+                context_str = "Repository not ingested yet"
             
-            # if file structure is empty/error, we might fallback or fail
-            context_str = "\n".join(file_structure) if file_structure else "No files found"
-            
-            # 2. Call Gemini Plan
+            # Call Gemini Plan with repository context
             plan = self.gemini_service.generate_plan(params['query'], context_str)
             
-            # 3. Store plan in session context for next step
+            # Store plan in session context for next step
             session_context["analysis_plan"] = plan
             
             return {
@@ -327,31 +328,18 @@ class OrchestratorService:
             if not plan:
                 raise ValueError("No analysis plan found in context. gemini_think must run first.")
             
-            # 1. Gather Evidence (Read files)
-            files_to_read = plan.files_to_read if hasattr(plan, 'files_to_read') else plan.get('files_to_read', [])
-            repo_path = self.ingest_service.get_repo_path(params['repo_id'])
+            # Get full repository content as evidence
+            # In real implementation, this would intelligently select relevant files
+            try:
+                repo_content = self.ingest_service.get_repo_content(params['repo_id'])
+            except FileNotFoundError:
+                repo_content = "Repository not found"
             
-            file_contents = {}
-            for file_item in files_to_read:
-                # file_item is FileToRead object or dict
-                f_path = file_item.path if hasattr(file_item, 'path') else file_item.get('path')
-                full_path = repo_path / f_path
-                try:
-                    # Safety check: ensure path is within repo
-                    if not str(full_path.resolve()).startswith(str(repo_path.resolve())):
-                        logger.warning(f"Skipping file outside repo: {f_path}")
-                        continue
-                        
-                    if full_path.exists() and full_path.is_file():
-                        # Read with size limit (e.g. 100KB)
-                        if full_path.stat().st_size < 100 * 1024:
-                            file_contents[f_path] = full_path.read_text(encoding='utf-8', errors='replace')
-                        else:
-                            file_contents[f_path] = "(File too large)"
-                except Exception as e:
-                    logger.warning(f"Failed to read {f_path}: {e}")
+            # For now, use repo_content as file_contents
+            # TODO: In future, parse plan.files_to_read and read specific files from source/
+            file_contents = {"repo.md": repo_content}
             
-            # 2. Call Gemini Analysis
+            # Call Gemini Analysis
             result = self.gemini_service.perform_analysis(params['query'], plan, file_contents)
             
             return {

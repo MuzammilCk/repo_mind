@@ -4,6 +4,7 @@ import os
 import json
 import hashlib
 import uuid
+import random
 from typing import Dict, Any, Optional, List
 
 from datetime import datetime
@@ -15,74 +16,60 @@ class GeminiService:
     
     def __init__(self):
         """
-        Initialize Gemini client with verification.
-        Stores availability status without crashing if API key invalid.
+        Initialize Gemini client with multi-key rotation validation.
         """
         self.gemini_available = False
         self.gemini_model = settings.GEMINI_MODEL
         self.client = None
-        self.api_key_hash = None  # For logging without exposing key
-        
-        # Module 3.5: Conversation storage (In-memory for now)
+        self.api_key_hash = None
         self.active_chats: Dict[str, Any] = {}
         
-        # Module 3.1: Verify Gemini API access
-        self._verify_gemini()
-    
-    def _verify_gemini(self):
+        # Load and shuffle keys for load balancing
+        self.api_keys = settings.api_keys
+        if not self.api_keys and settings.GEMINI_API_KEY:
+             self.api_keys = [settings.GEMINI_API_KEY]
+        
+        random.shuffle(self.api_keys)
+        
+        # Probe keys until one works
+        for i, key in enumerate(self.api_keys):
+            print(f"🔑 Probing API Key {i+1}/{len(self.api_keys)}...")
+            if self._verify_gemini(key):
+                print(f"✅ Key {i+1} Active!")
+                break
+        
+        if not self.gemini_available:
+            print("❌ All API keys failed verification.")
+
+    def _verify_gemini(self, api_key: str) -> bool:
         """
-        Verify Gemini API key is valid and client can be initialized.
-        Stores availability status without raising exceptions.
+        Verify a specific API key is valid and has quota.
         """
         try:
-            # Validate API key exists
-            if not settings.GEMINI_API_KEY:
-                raise ValueError("GEMINI_API_KEY not configured in environment")
-            
-            # Hash first 8 chars for logging (never log full key)
-            key_hash = hashlib.sha256(
-                settings.GEMINI_API_KEY.encode()
-            ).hexdigest()[:8]
-            self.api_key_hash = key_hash
+            # Hash for logging
+            key_hash = hashlib.sha256(api_key.encode()).hexdigest()[:8]
             
             # Initialize client
-            self.client = genai.Client(api_key=settings.GEMINI_API_KEY)
+            client = genai.Client(api_key=api_key)
             
-            # Test with minimal interaction (no thinking, fast)
-            # Use a dummy prompt to check connectivity
-            test_interaction = self.client.interactions.create(
+            # Test with minimal interaction
+            test_interaction = client.interactions.create(
                 model=self.gemini_model,
-                input="Respond with 'OK'",
-                generation_config={
-                    "temperature": 0.0,
-                    "max_output_tokens": 10
-                }
+                input="Ping",
+                generation_config={"max_output_tokens": 5}
             )
             
-            # Verify response
             if test_interaction.outputs:
-                response_text = test_interaction.outputs[-1].text
+                self.client = client
                 self.gemini_available = True
-                print(f"✅ Gemini API verified: model={self.gemini_model}, key_hash={key_hash}")
-                print(f"   Response: {response_text}")
-            else:
-                raise RuntimeError("Gemini API returned empty response")
+                self.api_key_hash = key_hash
+                return True
                 
-        except ValueError as e:
-            # API key missing
-            error_msg = f"Gemini API key not configured: {str(e)}"
-            print(f"⚠️  {error_msg}")
-            self.gemini_available = False
-            
-            self.gemini_available = False
-            
         except Exception as e:
-            # API call failed (invalid key, network, etc.)
-            import traceback
-            traceback.print_exc()
-            error_msg = f"Gemini API verification failed: {str(e)}"
-            print(f"⚠️  {error_msg}")
-            self.gemini_available = False
+            print(f"⚠️  Key Probe Failed: {str(e)}")
+            return False
+            
+        return False
     
     def get_status(self) -> Dict[str, Any]:
         """Get Gemini service status for health checks"""
@@ -609,3 +596,106 @@ Provide comprehensive analysis in JSON format.""",
             evidence_parts.append(f"--- END FILE: {path} ---\n")
             
         return "\n".join(evidence_parts)
+
+    def marathon_agent(
+        self,
+        user_goal: str,
+        max_iterations: int = 15,
+        thinking_level: str = "high"
+    ) -> Dict[str, Any]:
+        """Marathon Agent: Autonomous multi-step task execution"""
+        self._ensure_gemini_available()
+        
+        from services.agent_tools import AGENT_TOOLS
+        from services.tool_executor import execute_tool
+        
+        print(f"🏃 Marathon Agent - Goal: {user_goal}")
+        
+        iteration = 0
+        interaction_id = None
+        tool_calls_made = []
+        start_time = datetime.utcnow()
+        
+        system_instruction = """You are an autonomous OSS Discovery Agent. Help users discover relevant open-source projects and generate MVP code.
+Multi-step workflow: 1) Search GitHub, 2) Analyze repos, 3) Search packages, 4) Generate MVP.
+Be autonomous - make decisions without asking. Use thinking to plan. Self-correct if tools fail."""
+
+        try:
+            while iteration < max_iterations:
+                iteration += 1
+                print(f"\n🔄 Iteration {iteration}/{max_iterations}")
+                
+                if iteration == 1:
+                    agent_input = user_goal
+                else:
+                    agent_input = {
+                        "type": "function_result",
+                        "name": last_function_name,
+                        "call_id": last_function_call_id,
+                        "result": last_function_result
+                    }
+                
+                interaction = self.client.interactions.create(
+                    model=self.gemini_model,
+                    input=agent_input,
+                    tools=AGENT_TOOLS,
+                    previous_interaction_id=interaction_id,
+                    system_instruction=system_instruction if iteration == 1 else None,
+                    generation_config={"thinking_level": thinking_level, "temperature": 0.7, "max_output_tokens": 2000},
+                    store=True
+                )
+                
+                interaction_id = interaction.id
+                has_function_call = False
+                
+                if not interaction.outputs:
+                    break
+                
+                for output in interaction.outputs:
+                    if output.type == "thought" and hasattr(output, 'summary') and output.summary:
+                        print(f"   💭 {output.summary}")
+                    
+                    elif output.type == "function_call":
+                        has_function_call = True
+                        function_name = output.name
+                        function_args = output.arguments if hasattr(output, 'arguments') else {}
+                        function_call_id = output.id
+                        
+                        print(f"   🔧 {function_name}({json.dumps(function_args)})")
+                        result = execute_tool(function_name, function_args)
+                        print(f"      ✅ {result.get('status', 'unknown')}")
+                        
+                        last_function_name = function_name
+                        last_function_call_id = function_call_id
+                        last_function_result = result
+                        
+                        tool_calls_made.append({"iteration": iteration, "function": function_name, "result": result})
+                    
+                    elif output.type == "text" and not has_function_call:
+                        duration = (datetime.utcnow() - start_time).total_seconds()
+                        print(f"\n✅ Completed in {duration:.1f}s, {len(tool_calls_made)} tools")
+                        return {
+                            "status": "completed",
+                            "response": output.text,
+                            "iterations": iteration,
+                            "tool_calls": tool_calls_made,
+                            "duration_seconds": duration,
+                            "interaction_id": interaction_id
+                        }
+                
+                if not has_function_call:
+                    text_outputs = [o for o in interaction.outputs if o.type == "text"]
+                    duration = (datetime.utcnow() - start_time).total_seconds()
+                    return {
+                        "status": "completed",
+                        "response": text_outputs[0].text if text_outputs else "No response",
+                        "iterations": iteration,
+                        "tool_calls": tool_calls_made,
+                        "duration_seconds": duration
+                    }
+            
+            duration = (datetime.utcnow() - start_time).total_seconds()
+            return {"status": "max_iterations", "iterations": iteration, "tool_calls": tool_calls_made, "duration_seconds": duration}
+            
+        except Exception as e:
+            return {"status": "error", "error": str(e), "iterations": iteration, "tool_calls": tool_calls_made}

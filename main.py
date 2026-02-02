@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 import logging
 
-from api import ingest, search, analysis, orchestrator
+from api import ingest, search, analysis, orchestrator, marathon
 from api.middleware import setup_middleware
 from utils.metrics import metrics_collector
 from config import settings
@@ -54,6 +54,7 @@ app.include_router(ingest.router, prefix="/api", tags=["Ingest"])
 app.include_router(search.router, prefix="/api", tags=["Search"])
 app.include_router(analysis.router, prefix="/api", tags=["Analysis"])
 app.include_router(orchestrator.router, prefix="/api", tags=["Orchestrator"])
+app.include_router(marathon.router, tags=["Marathon"])
 
 logger.info("All routers registered successfully")
 
@@ -137,7 +138,6 @@ async def metrics():
     Metrics endpoint
     
     Returns metrics about API usage including:
-    - Total requests
     - Requests per second
     - Average duration
     - Breakdown by endpoint, status code, and method
@@ -174,3 +174,7 @@ async def shutdown_event():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
+
+# Reload trigger 15
+
+

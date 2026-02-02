@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     
     # Gemini Configuration
     GEMINI_API_KEY: Optional[str] = None
-    GEMINI_MODEL: str = "gemini-3-flash-preview"
+    GEMINI_MODEL: str = "gemini-2.0-flash-exp"
     
     # Storage Paths
     WORKSPACE_DIR: str = "./workspace"
@@ -61,6 +61,13 @@ class Settings(BaseSettings):
         env_file = ".env"
         case_sensitive = True
         extra = "ignore"
+
+    @property
+    def api_keys(self) -> list[str]:
+        """Parse comma-separated API keys"""
+        if not self.GEMINI_API_KEY:
+            return []
+        return [k.strip() for k in self.GEMINI_API_KEY.split(",")]
 
 
 # Initialize settings
