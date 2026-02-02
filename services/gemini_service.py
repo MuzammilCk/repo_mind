@@ -60,9 +60,11 @@ class GeminiService:
             )
             
             # Verify response
-            if test_interaction.outputs and len(test_interaction.outputs) > 0:
+            if test_interaction.outputs:
+                response_text = test_interaction.outputs[-1].text
                 self.gemini_available = True
                 print(f"✅ Gemini API verified: model={self.gemini_model}, key_hash={key_hash}")
+                print(f"   Response: {response_text}")
             else:
                 raise RuntimeError("Gemini API returned empty response")
                 
@@ -540,7 +542,7 @@ Provide comprehensive analysis in JSON format.""",
         interaction_id: str,
         user_query: str,
         context_hint: Optional[str] = None
-    ) -> str:
+    ) -> Dict[str, Any]:
         """
         Continue a previous interaction with follow-up question.
         """
@@ -582,7 +584,14 @@ Provide comprehensive analysis in JSON format.""",
             # I will trust the user snippet for now, maybe caller uses 'interaction' object if possible?
             # No, snippet returns string. 
             # I'll stick to snippet exact logic.
-            return interaction.outputs[-1].text
+            # Return both text and ID to allow caller to maintain state
+            # Reference pattern: turn_2 = client.interactions.create(..., previous_interaction_id=turn_1.id)
+            response_text = interaction.outputs[-1].text if interaction.outputs else ""
+            
+            return {
+                "text": response_text,
+                "interaction_id": interaction.id
+            }
             
         except Exception as e:
             raise ValueError(f"Continuation failed: {str(e)}")

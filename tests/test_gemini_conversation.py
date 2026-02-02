@@ -8,7 +8,7 @@ def mock_gemini_service():
     with patch('services.gemini_service.GeminiService._verify_gemini'):
         service = GeminiService()
         service.gemini_available = True
-        service.gemini_model = "gemini-2.0-flash-exp"
+        service.gemini_model = "gemini-2.5-flash"
         service.client = MagicMock()
         service.active_chats = {}
         return service
