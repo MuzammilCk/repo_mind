@@ -163,6 +163,26 @@ AGENT_TOOLS = [
         }
     },
     {
+        "type": "function",
+        "name": "run_code_analysis",
+        "description": "Run lightweight static analysis tools (radon, pylint) on a local file or directory.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "target_path": {
+                    "type": "string",
+                    "description": "Path to file or directory to analyze"
+                },
+                "tool": {
+                    "type": "string",
+                    "description": "Tool to run: 'radon' (complexity), 'pylint' (quality), 'tokei' (stats)",
+                    "enum": ["radon", "pylint", "tokei"]
+                }
+            },
+            "required": ["target_path", "tool"]
+        }
+    },
+    {
         "type": "google_search"
     }
 ]

@@ -1,0 +1,3 @@
+{
+    "goal": "Run a deep security scan on https://github.com/octocat/Hello-World using run_security_scan. Use the background mode and check status."
+}

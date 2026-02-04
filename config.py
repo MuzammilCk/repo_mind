@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     
     # Gemini Configuration
     GEMINI_API_KEY: Optional[str] = None
-    GEMINI_MODEL: str = "gemini-2.0-flash-exp"
+    GEMINI_MODEL: str = "gemini-3.0-flash-preview"
     
     # Storage Paths
     WORKSPACE_DIR: str = "./workspace"

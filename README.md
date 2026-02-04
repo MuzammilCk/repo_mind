@@ -10,6 +10,23 @@ Repo Mind is an advanced CLI tool and API that leverages Google Gemini (2.0 Flas
 - **Orchestration**: A smart orchestrator that plans, executes, and persists analysis workflows.
 - **Evidence-Based**: Verifies all AI-cited code against the actual repository to prevent hallucinations.
 
+## 🏗️ Architecture: Adaptive Macro-Planning
+
+This project strictly adheres to the **Gemini 3 Free Tier (5 RPM limit)** by using a unique "Dual-Gear" architecture:
+
+```mermaid
+graph TD
+    A[User Goal] -->|API Call 1| B(Gemini Planner)
+    B -->|JSON Plan| C{Local Executor}
+    C -->|Tool 1| D[Search]
+    C -->|Tool 2| E[Code Analysis]
+    C -->|Tool 3| F[Security Scan]
+    C -->|Failure?| G(Gemini Re-Planner)
+    G -->|New Plan| C
+    C -->|Results| H[Gemini Synthesizer]
+    H -->|API Call 2| I[Final Report]
+```
+
 ## 📋 Prerequisites
 
 - **Python 3.11+**

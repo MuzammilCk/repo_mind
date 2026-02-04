@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 import logging
 
-from api import ingest, search, analysis, orchestrator, marathon
+from api import ingest, search, analysis, orchestrator, marathon #, fixbot
 from api.middleware import setup_middleware
 from utils.metrics import metrics_collector
 from config import settings
@@ -55,8 +55,19 @@ app.include_router(search.router, prefix="/api", tags=["Search"])
 app.include_router(analysis.router, prefix="/api", tags=["Analysis"])
 app.include_router(orchestrator.router, prefix="/api", tags=["Orchestrator"])
 app.include_router(marathon.router, tags=["Marathon"])
+# app.include_router(fixbot.router, tags=["FixBot"])
 
 logger.info("All routers registered successfully")
+
+# Mount static files
+from fastapi.staticfiles import StaticFiles
+import os
+
+if not os.path.exists("static"):
+    os.makedirs("static")
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
+
 
 
 @app.get(

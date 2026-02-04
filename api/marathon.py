@@ -19,7 +19,7 @@ class MarathonRequest(BaseModel):
 
 
 @router.post("/run")
-async def run_marathon_agent(request: MarathonRequest):
+def run_marathon_agent(request: MarathonRequest):
     """
     Run the Marathon Agent - Autonomous OSS Discovery
     

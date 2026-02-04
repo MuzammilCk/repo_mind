@@ -6,6 +6,7 @@ import json
 from typing import Dict, List, Any, Optional
 from urllib.parse import quote_plus
 import logging
+import os  # Added missing import
 
 # Deep Integration Services
 try:
@@ -396,6 +397,56 @@ def run_security_scan(repo_url: str, language: str = None, background: bool = Tr
 
 
 
+
+def run_code_analysis(target_path: str, tool: str) -> Dict[str, Any]:
+    """Run lightweight static analysis tools"""
+    import subprocess
+    import shutil
+    
+    if not os.path.exists(target_path):
+        return {"error": f"Path not found: {target_path}"}
+
+    tool_cmd = []
+    if tool == "radon":
+        if not shutil.which("radon"):
+            return {"error": "radon not installed. Run: pip install radon"}
+        tool_cmd = ["radon", "cc", target_path, "-a", "-s", "--json"]
+    elif tool == "pylint":
+        if not shutil.which("pylint"):
+            return {"error": "pylint not installed. Run: pip install pylint"}
+        tool_cmd = ["pylint", target_path, "--output-format=json", "--errors-only"]
+    elif tool == "tokei":
+         if not shutil.which("tokei"):
+             # Fallback to simple line count if tokei missing
+             return _simple_line_count(target_path)
+         tool_cmd = ["tokei", target_path, "-o", "json"]
+    else:
+        return {"error": f"Unknown tool: {tool}"}
+        
+    try:
+        result = subprocess.run(tool_cmd, capture_output=True, text=True, timeout=30)
+        return {
+            "tool": tool,
+            "target": target_path,
+            "stdout": result.stdout[:2000], # Truncate for API limit
+            "stderr": result.stderr,
+            "exit_code": result.returncode
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+def _simple_line_count(path):
+    count = 0
+    for root, dirs, files in os.walk(path):
+        for f in files:
+            try:
+                if f.endswith('.py'):
+                    with open(os.path.join(root, f), errors='ignore') as f_obj:
+                         count += sum(1 for _ in f_obj)
+            except: pass
+    return {"tool": "manual_count", "lines": count}
+
+
 def execute_tool(tool_name: str, tool_args: Dict[str, Any]) -> Dict[str, Any]:
     """Execute a tool dynamically"""
     if tool_name not in TOOL_EXECUTORS:
@@ -418,5 +469,6 @@ TOOL_EXECUTORS = {
     "search_pypi_packages": search_pypi_packages,
     "generate_mvp_files": generate_mvp_files,
     "run_security_scan": run_security_scan,
-    "check_scan_status": check_scan_status
+    "check_scan_status": check_scan_status,
+    "run_code_analysis": run_code_analysis
 }

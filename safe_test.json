@@ -1,0 +1,3 @@
+{
+    "goal": "Use the analyze_repository tool to check the stars and language of https://github.com/tiangolo/fastapi."
+}
